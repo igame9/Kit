@@ -43,17 +43,24 @@ public class RequestMethodController {
     public String requestMethodPost(@RequestBody Greeting greeting) { //requestbody во в счех пост должно быть ,отправляем в модель greeting
         Man man = new Man();
         Gson gs = new Gson();
-        String data = gs.toJson(greeting);
-      //  man.setId(greeting.getId()) ;
         man.setFamily(greeting.getFamily());
         man.setName(greeting.getName());
         man.setUniversity(greeting.getUniversity());
+        man.setSecondname(greeting.getSecondname());
+        man.setGroup(greeting.getGroup());
+        man.setAge(greeting.getAge());
+        man.setCourse(greeting.getCourse());
+
+
         String name = man.getName();
         String fam = man.getFamily();
+        String secondName = man.getSecondname();
         String university = man.getUniversity();
+        int age = man.getAge();
+        int course = man.getCourse();
+        String group = man.getGroup();
 
-        DbSqlite.insertMan(name,fam,university);
-
+        DbSqlite.insertMan(name,fam,secondName,university,age,course,group);
     return gs.toJson(greeting);
 
     }

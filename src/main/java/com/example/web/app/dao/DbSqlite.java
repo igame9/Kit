@@ -35,14 +35,14 @@ public class DbSqlite implements InitializingBean {
         }
     }
     //Когда ввел данные
-    public static void insertMan(String name, String fam, String university) {
+    public static void insertMan(String name, String fam, String secondName,String university,int age,int course,String group) {
         //  User user = new User(man.getId(), man.getName() , man.getFamily() , man.getUniversity());
-        String query = ("insert into Man (Name,Family,University) values('" + name + "','" + fam + "','" + university + "')"); //"select * from USER where id = " + id;
+        String query = ("insert into Man (Name,Family,SecondName,University,Age,Course,Gr) values('" + name + "','" + fam + "','" + secondName + "','" + university + "','" + age + "','" + course + "','" + group + "')"); //"select * from USER where id = " + id;
         try (Connection conn = DriverManager.getConnection("jdbc:sqlite:" + dbPath);
              Statement stat = conn.createStatement()) {
              stat.executeUpdate(query);
         } catch (SQLException ex) {
-            System.out.println("Ошибка  записи в БД");
+            System.out.println("Ошибка  записи в БД"+ex.getMessage()+ ex.getCause());
         }
     }
     public Man selectUserById(int id) {
@@ -51,13 +51,17 @@ public class DbSqlite implements InitializingBean {
              Statement stat = conn.createStatement()) {
             ResultSet resultSet = stat.executeQuery(query);
             Man man = new Man();
-            man.setId(resultSet.getInt("id"));
             man.setName(resultSet.getString("Name"));
             man.setFamily(resultSet.getString("Family"));
+            man.setSecondname(resultSet.getString("SecondName"));
             man.setUniversity(resultSet.getString("University"));
+            man.setAge(resultSet.getInt("Age"));
+            man.setCourse(resultSet.getInt("Course"));
+            man.setGroup(resultSet.getString("Gr"));
+
             return man;
         } catch (SQLException ex){
-            System.out.println("Ошибка получения пользователя из БД");
+            System.out.println("Ошибка получения пользователя из БД"+ex.getMessage());
             return new Man();
         }
     }

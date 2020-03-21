@@ -11,7 +11,7 @@
                var xhr = new XMLHttpRequest();
             xhr.open("POST", "requestmethod");
             xhr.setRequestHeader("Content-type", "application/json");
-            xhr.onload = (e) => {git
+            xhr.onload = (e)  => {
                 alert("Ваши данные:" + e.target.response)
                     if(xhr.status != 200){
                         window.alert("Что-то пошло не так")
@@ -21,12 +21,23 @@
                         window.alert("Данные отправлены")
                     }
             };
-            var fam = document.getElementById("fam").value;
-            var place = document.getElementById("place").value;
             var name = document.getElementById("name").value;
-            var params1 = { "family" : fam,
-                            "university" : place,
-                            "name" : name};
+            var fam = document.getElementById("family").value;
+            var secondname = document.getElementById("secondname").value;
+            var university = document.getElementById("place").value;
+            var age= document.getElementById("age").value;
+            var course = document.getElementById("course").value;
+            var group = document.getElementById("group").value;
+
+
+            var params1 = { "name" : name,
+                            "family" : fam,
+                            "secondname" : secondname,
+                            "university" : university,
+                            "age" : age,
+                            "course" : course,
+                            "group" : group};
+
             xhr.send(JSON.stringify(params1));
             }
     </script>
@@ -37,13 +48,25 @@
     <button class="but2" onclick="document.location='site.html'">Перейти к поиску</button>
     <form onsubmit="getUser()">
         <label>
-            Фамилия <input id="fam"  type="text" value="">
-        </label><br>
-        <label>
             Имя <input id="name"  type="text" value="">
         </label><br>
         <label>
+            Фамилия <input id="family"  type="text" value="">
+        </label><br>
+        <label>
+            Отчество <input id="secondname"  type="text" value="">
+        </label><br>
+        <label>
             Место учебы <input id="place"  type="text" value="">
+        </label><br>
+        <label>
+            Возраст <input id="age"  type="text" value="">
+        </label><br>
+        <label>
+            Номер курса <input id="course"  type="text" value="">
+        </label><br>
+        <label>
+            Группа <input id="group"  type="text" value="">
         </label><br>
         <label>
             <input type="submit" value="Отправить">
