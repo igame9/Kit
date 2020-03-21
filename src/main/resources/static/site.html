@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<link href="css/mycss.css" rel="stylesheet"/>
+<html>
+	<head>
+	<meta charset="utf-8"/>
+	<title>Сайт</title>
+
+	</head>
+	<header align="center" class="head">
+	<h1>Личный сайт</h1>
+	<div class="F">
+		<button class="but1" onclick="document.location='user_add.html'">Добавить пользователя</button>
+		<form onsubmit="getUser()">
+			<label>
+				Введите id Студента<input id="input_user_id" type="number" value="">
+			</label><br>
+			<label>
+				Запросить <input type="submit" value="Запросить">
+			</label>
+		</form>
+	</div>
+	</header>
+	<body class="body">
+	<div class="picturehi"></div>
+	<div align="center" class="Text"><h2></div>
+	<div class="Mtext">
+	<div>
+		<dl>
+			<dt>Информация:</dt>
+			<dd>Имя</dd>
+			<dd>Вуз</dd>
+			<dd>Возраст</dd>
+		</dl>
+	</div>
+	<h4><p> Всем привет!Меня зовут Андрей.Учусь в МАИ.Мне 21 год.</p>
+
+		<img class="rocket" src="images/r3.png">
+
+	<script type="text/javascript">
+        function getUser() {
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "SelectUser");
+            xhr.setRequestHeader("Content-type", "application/json");
+            xhr.onload = (e) => {
+                alert("Получен ответ" + e.target.response)
+                if(xhr.status != 200){
+                        window.alert("Что-то пошло не так")
+                    }
+                    else
+                    {
+                        window.alert("Данные нашлись.")
+                    }
+            };
+            var user_id = document.getElementById("input_user_id").value;
+            var params = {"id" : user_id};
+
+            if (document.getElementById("input_user_id").value == '')
+			{
+			alert ('Id не может быть пустым');
+			return false;
+			}
+            xhr.send(JSON.stringify(params));
+        }
+         </script>
+</body>
+</html>
+
