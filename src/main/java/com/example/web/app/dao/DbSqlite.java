@@ -58,8 +58,8 @@ public class DbSqlite implements InitializingBean {
             man.setAge(resultSet.getInt("Age"));
             man.setCourse(resultSet.getInt("Course"));
             man.setGroup(resultSet.getString("Gr"));
-
             return man;
+
         } catch (SQLException ex){
             System.out.println("Ошибка получения пользователя из БД"+ex.getMessage());
             return new Man();

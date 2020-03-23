@@ -60,6 +60,7 @@ public class RequestMethodController {
         int course = man.getCourse();
         String group = man.getGroup();
 
+
         DbSqlite.insertMan(name,fam,secondName,university,age,course,group);
     return gs.toJson(greeting);
 
