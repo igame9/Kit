@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="utf-8"/>
-    <title>Мой первый сервис</title>
+	<meta charset="utf-8"/>
+	<title>Мой первый сервис</title>
 
-    <link rel="stylesheet" href="css/mycss.css"/>
+	<link href="css/mycss.css" rel="stylesheet"/>
 
-    <script type="text/javascript">
+	<script type="text/javascript">
         function getUser() {
                var xhr = new XMLHttpRequest();
             xhr.open("POST", "requestmethod");
@@ -56,38 +56,39 @@
             }
             xhr.send(JSON.stringify(params1));
             }
-    </script>
+
+	</script>
 </head>
 
 <body>
 <div class="wrapper">
-    <button class="but2" onclick="document.location='site.html'">Перейти к поиску</button>
-    <form onsubmit="getUser()">
-        <label>
-            Имя* <input id="name"  type="text" value="">
-        </label><br>
-        <label>
-            Фамилия* <input id="family"  type="text" value="">
-        </label><br>
-        <label>
-            Отчество* <input id="secondname"  type="text" value="">
-        </label><br>
-        <label>
-            Место учебы* <input id="place"  type="text" value="">
-        </label><br>
-        <label>
-            Возраст <input id="age"  type="number" value="">
-        </label><br>
-        <label>
-            Номер курса <input id="course"  type="number" value="">
-        </label><br>
-        <label>
-            Группа <input id="group"  type="text" value="">
-        </label><br>
-        <label>
-            <input type="submit" value="Отправить">
-        </label>
-    </form>
+	<button class="but2" onclick="document.location='site.html'">Перейти к поиску</button>
+	<form onsubmit="getUser()">
+		<label>
+			Имя* <input id="name" type="text" value="">
+		</label><br>
+		<label>
+			Фамилия* <input id="family" type="text" value="">
+		</label><br>
+		<label>
+			Отчество* <input id="secondname" type="text" value="">
+		</label><br>
+		<label>
+			Место учебы* <input id="place" type="text" value="">
+		</label><br>
+		<label>
+			Возраст <input id="age" type="number" value="">
+		</label><br>
+		<label>
+			Номер курса <input id="course" type="number" value="">
+		</label><br>
+		<label>
+			Группа <input id="group" type="text" value="">
+		</label><br>
+		<label>
+			<input type="submit" value="Отправить">
+		</label>
+	</form>
 </div>
 </body>
 </html>
