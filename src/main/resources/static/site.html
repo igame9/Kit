@@ -1,32 +1,18 @@
 <!DOCTYPE html>
 <link href="css/mycss.css" rel="stylesheet"/>
 <html>
-	<head>
+<head>
 	<meta charset="utf-8"/>
 	<title>Сайт</title>
 
-	</head>
-	<header align="center" class="head">
+</head>
+<header align="center" class="head">
 	<h1>Личный сайт</h1>
-	<div class="F">
-		<button class="but1" onclick="document.location='user_add.html'">Добавить пользователя</button>
-		<form onclick="getUser()">
-			<label>
-				Введите id Студента<input id="input_user_id" type="number" value="">
-			</label><br>
-			<label>
-				Имя <output id="output_id" type="text" value=""></output>
-			</label><br>
-			<label>
-				Запросить <input type="button" value="Запросить">
-			</label>
-		</form>
-	</div>
-	</header>
-	<body class="body">
-	<div class="picturehi"></div>
-	<div align="center" class="Text"><h2></div>
-	<div class="Mtext">
+</header>
+<body class="body">
+<div class="picturehi"></div>
+<div align="center" class="Text"><h2></div>
+<div class="Mtext">
 	<div>
 		<dl>
 			<dt>Информация:</dt>
@@ -34,12 +20,47 @@
 			<dd>Вуз</dd>
 			<dd>Возраст</dd>
 		</dl>
+		<button class="but1" onclick="document.location='user_add.html'">Добавить пользователя</button>
 	</div>
 	<h4><p> Всем привет!Меня зовут Андрей.Учусь в МАИ.Мне 21 год.</p>
+		<form>
+			<label>
+				Введите id Студента<input id="input_user_id" type="number" value="">
+			</label><br>
+			<label>
+				Имя:
+				<output id="output_name" type="text" value=""></output>
+			</label><br>
+			<label>
+				Фамилия:
+				<output id="output_family" type="text" value=""></output>
+			</label><br>
+			<label>
+				Отчество:
+				<output id="output_secondname" type="text" value=""></output>
+			</label><br>
+			<label>
+				Место учебы:
+				<output id="output_university" type="text" value=""></output>
+			</label><br>
+			<label>
+				Возраст:
+				<output id="output_age" type="number" value=""></output>
+			</label><br>
+			<label>
+				Курс:
+				<output id="output_course" type="number" value=""></output>
+			</label><br>
+			<label>
+				Группа:
+				<output id="output_group" type="text" value=""></output>
+			</label><br>
+			<p><input class="getUsers" onclick="getUser()" type="button" value="Получить пользователя"></p>
+		</form>
 
 		<img class="rocket" src="images/r3.png">
 
-	<script type="text/javascript">
+		<script type="text/javascript">
         function getUser() {
             var xhr = new XMLHttpRequest();
             xhr.open("POST", "SelectUser");
@@ -47,8 +68,22 @@
             xhr.onload = (e) => {
 
                 alert("Получен ответ" + e.target.response)
-                var data = e.target.response;
-                document.getElementById("output_id").value = data;
+                var data = JSON.parse(e.target.response);
+                var name = data.name;
+                var family = data.family;
+                var secondname = data.secondname;
+                var university = data.university;
+                var age = data.age;
+                var course = data.course;
+                var group = data.group;
+                document.getElementById("output_name").value = name;
+                document.getElementById("output_family").value = family;
+                document.getElementById("output_secondname").value = secondname;
+                document.getElementById("output_university").value = university;
+                document.getElementById("output_age").value = age;
+                document.getElementById("output_course").value = course;
+                document.getElementById("output_group").value = group;
+
                 if(xhr.status != 200){
                         window.alert("Что-то пошло не так")
                     }
@@ -66,7 +101,6 @@
 			}
             xhr.send(JSON.stringify(params));
         }
-         </script>
+		</script>
 </body>
 </html>
-
