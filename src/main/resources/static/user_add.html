@@ -16,10 +16,7 @@
                     if(xhr.status !== 200){
                         window.alert("Что-то пошло не так")
                     }
-                    else
-                    {
-                        window.alert("Данные отправлены")
-                    }
+
             };
             var name = document.getElementById("name").value;
             var fam = document.getElementById("family").value;
@@ -46,22 +43,24 @@
 			    return false;
 			}
 
-           if(Number.isInteger(agtst&&coutst)){
-                alert('Возраст и номер группы успешно приняты');
-            }
-             else
-            {
+			if(agtst&&coutst<1){
+				alert('Возраст и номер курса не могут быть меньше 1');
+				return false;
+			}
+
+             if(!(Number.isInteger(agtst&&coutst))){
                 alert('Возраст и номер группы должны быть числом');
                 return false;
             }
             xhr.send(JSON.stringify(params1));
+
+             if(xhr.readyState = 4){
+                alert('Данные успешно отправлены');
+             }
             }
-
-
 
 	</script>
 </head>
-
 <body>
 <div class="wrapper">
 	<button class="but2" onclick="document.location='site.html'">Перейти к поиску</button>
@@ -79,10 +78,10 @@
 			Место учебы* <input id="place" type="text" value="">
 		</label><br>
 		<label>
-			Возраст <input id="age" type="number" value="">
+			Возраст <input id="age" type="number" min="1" value="">
 		</label><br>
 		<label>
-			Номер курса <input id="course" type="number" value="">
+			Номер курса <input id="course" type="number" min="1" value="">
 		</label><br>
 		<label>
 			Группа <input id="group" type="text" value="">

@@ -1,13 +1,12 @@
 package com.example.web.app.api.request;
-import com.example.web.app.controllers.RequestMethodController;
-import java.util.ArrayList;
+
 public class Man {
     private String name;
     private String family;
     private String secondname;
     private String university;
-    private int age;
-    private int course;
+    private Integer age;
+    private Integer course;
     private String group;
 
     public String getName() {
@@ -42,19 +41,19 @@ public class Man {
         this.university = university;
     }
 
-    public int getAge() {
+    public Integer getAge() {
         return age;
     }
 
-    public void setAge(int age) {
+    public void setAge(Integer age) {
         this.age = age;
     }
 
-    public int getCourse() {
+    public Integer getCourse() {
         return course;
     }
 
-    public void setCourse(int course) {
+    public void setCourse(Integer course) {
         this.course = course;
     }
 

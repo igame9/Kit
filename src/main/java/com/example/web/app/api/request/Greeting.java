@@ -1,11 +1,14 @@
 package com.example.web.app.api.request;
+
+import io.swagger.models.auth.In;
+
 public  class Greeting {
     private String name;
     private String family;
     private String secondname;
     private String university;
-    private int age;
-    private int course;
+    private Integer age;
+    private Integer course;
     private String group;
 
     public String getName() {
@@ -40,19 +43,19 @@ public  class Greeting {
         this.university = university;
     }
 
-    public int getAge() {
+    public Integer getAge() {
         return age;
     }
 
-    public void setAge(int age) {
+    public void setAge(Integer age) {
         this.age = age;
     }
 
-    public int getCourse() {
+    public Integer getCourse() {
         return course;
     }
 
-    public void setCourse(int course) {
+    public void setCourse(Integer course) {
         this.course = course;
     }
 

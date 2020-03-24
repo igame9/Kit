@@ -25,7 +25,7 @@
 	<h4><p> Всем привет!Меня зовут Андрей.Учусь в МАИ.Мне 21 год.</p>
 		<form>
 			<label>
-				Введите id Студента<input id="input_user_id" type="number" value="">
+				Введите id Студента<input id="input_user_id" type="number" min="1" value="">
 			</label><br>
 			<label>
 				Имя:
@@ -67,7 +67,6 @@
             xhr.setRequestHeader("Content-type", "application/json");
             xhr.onload = (e) => {
 
-                alert("Получен ответ" + e.target.response)
                 var data = JSON.parse(e.target.response);
                 var name = data.name;
                 var family = data.family;

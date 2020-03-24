@@ -56,8 +56,8 @@ public class RequestMethodController {
         String fam = man.getFamily();
         String secondName = man.getSecondname();
         String university = man.getUniversity();
-        int age = man.getAge();
-        int course = man.getCourse();
+        Integer age = man.getAge();
+        Integer course = man.getCourse();
         String group = man.getGroup();
 
 
