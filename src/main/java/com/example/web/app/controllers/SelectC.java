@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.lang.reflect.Type;
+
 
 @RestController
 public class SelectC {
@@ -33,6 +35,7 @@ public class SelectC {
     @RequestMapping(value = "SelectUser", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public String requestMethodPost(@RequestBody UserByIdRequest userByIdRequest) { //requestbody во в счех пост должно быть ,отправляем в модель greeting
         Gson gs = new Gson();
+        dbSqlite.SizeDb();
         Man man = dbSqlite.selectUserById(userByIdRequest.getId());
         return gs.toJson(man);
     }

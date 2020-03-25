@@ -56,12 +56,14 @@
 				<output id="output_group" type="text" value=""></output>
 			</label><br>
 			<p><input class="getUsers" onclick="getUser()" type="button" value="Получить пользователя"></p>
+			<p><input class="next" onclick="getUser(1)" type="button" value="Вперед"></p>
+			<p><input class="back" onclick="getUser(2)" type="button" value="Назад"></p>
 		</form>
 
 		<img class="rocket" src="images/r3.png">
 
 		<script type="text/javascript">
-        function getUser() {
+        function getUser(value) {
             var xhr = new XMLHttpRequest();
             xhr.open("POST", "SelectUser");
             xhr.setRequestHeader("Content-type", "application/json");
@@ -75,6 +77,8 @@
                 var age = data.age;
                 var course = data.course;
                 var group = data.group;
+                var sizedb = data.size;
+
                 document.getElementById("output_name").value = name;
                 document.getElementById("output_family").value = family;
                 document.getElementById("output_secondname").value = secondname;
@@ -83,14 +87,32 @@
                 document.getElementById("output_course").value = course;
                 document.getElementById("output_group").value = group;
 
+
                 if(xhr.status != 200){
                         window.alert("Что-то пошло не так")
                     }
                     else
                     {
-                        window.alert("Данные нашлись.")
+                        window.alert("Данные нашлись"+e.target.response)
                     }
             };
+
+            var idtst = Number(document.getElementById("input_user_id").value);
+                if(value === 1){
+				var user_id = document.getElementById("input_user_id").value;
+				user_id++
+				document.getElementById("input_user_id").value = user_id;
+
+			}   else if(idtst <2){
+				alert('Выход за пределы списка');
+				return false;
+			}
+				if(value === 2){
+				var user_id = document.getElementById("input_user_id").value;
+				user_id--;
+				document.getElementById("input_user_id").value = user_id;
+				}
+
             var user_id = document.getElementById("input_user_id").value;
             var params = {"id" : user_id};
             if (document.getElementById("input_user_id").value == '')
@@ -99,7 +121,10 @@
 			return false;
 			}
             xhr.send(JSON.stringify(params));
-        }
+
+		}
+
+
 		</script>
 </body>
 </html>

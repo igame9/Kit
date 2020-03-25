@@ -8,6 +8,16 @@ public class Man {
     private Integer age;
     private Integer course;
     private String group;
+    private Integer size;
+
+    public Integer getSize() {
+        return size;
+    }
+
+    public void setSize(Integer size) {
+        this.size = size;
+    }
+
 
     public String getName() {
         return name;

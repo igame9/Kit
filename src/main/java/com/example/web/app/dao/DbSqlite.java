@@ -3,6 +3,8 @@ package com.example.web.app.dao;
 import com.example.web.app.api.request.Man;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.stereotype.Service;
+
+import javax.validation.constraints.Size;
 import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -16,6 +18,7 @@ public class DbSqlite implements InitializingBean {
     public void afterPropertiesSet() throws Exception {
         initDb();
     }
+
     public void initDb() {
         try {
             Class.forName("org.sqlite.JDBC");
@@ -25,6 +28,7 @@ public class DbSqlite implements InitializingBean {
             log.log(Level.WARNING, "База не подключена", ex);
         }
     }
+
     public Boolean execute(String query) {
         try (Connection conn = DriverManager.getConnection("jdbc:sqlite:" + dbPath);
              Statement stat = conn.createStatement()) {
@@ -34,19 +38,22 @@ public class DbSqlite implements InitializingBean {
             return false;
         }
     }
+
     //Когда ввел данные
-    public static void insertMan(String name, String fam, String secondName,String university,Integer age,Integer course,String group) {
+    public static void insertMan(String name, String fam, String secondName, String university, Integer age, Integer course, String group) {
         //  User user = new User(man.getId(), man.getName() , man.getFamily() , man.getUniversity());
         String query = ("insert into Man (Name,Family,SecondName,University,Age,Course,Gr) values('" + name + "','" + fam + "','" + secondName + "','" + university + "','" + age + "','" + course + "','" + group + "')"); //"select * from USER where id = " + id;
         try (Connection conn = DriverManager.getConnection("jdbc:sqlite:" + dbPath);
              Statement stat = conn.createStatement()) {
-             stat.executeUpdate(query);
+            stat.executeUpdate(query);
         } catch (SQLException ex) {
-            System.out.println("Ошибка  записи в БД"+ex.getMessage()+ ex.getCause());
+            System.out.println("Ошибка  записи в БД" + ex.getMessage() + ex.getCause());
         }
     }
+
     public Man selectUserById(int id) {
         String query = "select * from Man where id = " + id;
+        String query2 = "select count(*) from Man";
         try (Connection conn = DriverManager.getConnection("jdbc:sqlite:" + dbPath);
              Statement stat = conn.createStatement()) {
             ResultSet resultSet = stat.executeQuery(query);
@@ -58,13 +65,31 @@ public class DbSqlite implements InitializingBean {
             man.setAge(resultSet.getInt("Age"));
             man.setCourse(resultSet.getInt("Course"));
             man.setGroup(resultSet.getString("Gr"));
+            man.setSize(SizeDb());
             return man;
 
-        } catch (SQLException ex){
-            System.out.println("Ошибка получения пользователя из БД"+ex.getMessage());
+        } catch (SQLException ex) {
+            System.out.println("Ошибка получения пользователя из БД" + ex.getMessage());
             return new Man();
         }
     }
+
+    public static int SizeDb() {
+        try (Connection conn = DriverManager.getConnection("jdbc:sqlite:" + dbPath);
+             Statement stat = conn.createStatement()) {
+            String query = "select count(*) from Man";
+            ResultSet rs = stat.executeQuery(query);
+            rs.next();
+            Integer count = rs.getInt(1);
+             return count;
+        } catch (SQLException ex) {
+            System.out.println("Ошибка в БД" + ex.getMessage() + ex.getCause());
+        }
+            return 0;
+    }
+
 }
+
+
 
 
