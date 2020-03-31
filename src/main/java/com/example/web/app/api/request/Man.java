@@ -1,5 +1,7 @@
 package com.example.web.app.api.request;
 
+import java.util.List;
+
 public class Man {
     private String name;
     private String family;
@@ -8,14 +10,15 @@ public class Man {
     private Integer age;
     private Integer course;
     private String group;
-    private Integer size;
+    private  List allid;
 
-    public Integer getSize() {
-        return size;
+
+    public List getAllid() {
+        return allid;
     }
 
-    public void setSize(Integer size) {
-        this.size = size;
+    public void setAllid(List allid) {
+        this.allid = allid;
     }
 
 

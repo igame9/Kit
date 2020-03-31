@@ -6,6 +6,8 @@ import org.springframework.stereotype.Service;
 
 import javax.validation.constraints.Size;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -65,7 +67,7 @@ public class DbSqlite implements InitializingBean {
             man.setAge(resultSet.getInt("Age"));
             man.setCourse(resultSet.getInt("Course"));
             man.setGroup(resultSet.getString("Gr"));
-            man.setSize(SizeDb());
+            man.setAllid(getUsersId());
             return man;
 
         } catch (SQLException ex) {
@@ -73,6 +75,7 @@ public class DbSqlite implements InitializingBean {
             return new Man();
         }
     }
+/*
 
     public static int SizeDb() {
         try (Connection conn = DriverManager.getConnection("jdbc:sqlite:" + dbPath);
@@ -86,6 +89,25 @@ public class DbSqlite implements InitializingBean {
             System.out.println("Ошибка в БД" + ex.getMessage() + ex.getCause());
         }
             return 0;
+    }
+*/
+
+    public  List getUsersId() {
+        String query = "select ID from Man";
+        List<Integer> list = new ArrayList<>();
+        try (Connection conn = DriverManager.getConnection("jdbc:sqlite:" + dbPath);
+             Statement stat = conn.createStatement()) {
+            ResultSet resultSet = stat.executeQuery(query);
+            while (resultSet.next()) {
+                list.add(resultSet.getInt("ID"));
+            }
+            System.out.println(list);
+            return list;
+        } catch (SQLException ex) {
+            log.log(Level.WARNING, "Не удалось выполнить запрос", ex);
+            return null;
+        }
+
     }
 
 }

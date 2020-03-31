@@ -35,8 +35,8 @@ public class SelectC {
     @RequestMapping(value = "SelectUser", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public String requestMethodPost(@RequestBody UserByIdRequest userByIdRequest) { //requestbody во в счех пост должно быть ,отправляем в модель greeting
         Gson gs = new Gson();
-        dbSqlite.SizeDb();
         Man man = dbSqlite.selectUserById(userByIdRequest.getId());
+        dbSqlite.getUsersId();
         return gs.toJson(man);
     }
 }
