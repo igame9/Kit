@@ -3,6 +3,7 @@ package com.example.web.app.controllers;
 import com.example.web.app.api.request.Greeting;
 import com.example.web.app.api.request.Man;
 import com.example.web.app.api.request.UserByIdRequest;
+import com.example.web.app.api.request.UserByIdRequestB;
 import com.example.web.app.dao.DbSqlite;
 import com.google.gson.Gson;
 import io.swagger.annotations.ApiOperation;
@@ -42,16 +43,20 @@ public class SelectC {
             @ApiResponse(code = 200, message = "OK", response = Greeting.class),
             @ApiResponse(code = 400, message = "Ошибка валидации входных параметров"),
             @ApiResponse(code = 500, message = "Внутренняя ошибка сервера")})
-    @RequestMapping(value = "Checkid", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "CheckidF", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public String Checkid(@RequestBody UserByIdRequest userByIdRequest) {
         Gson gs = new Gson();
-        Man man = dbSqlite.selectUserById(userByIdRequest.getId());
         Integer curid = userByIdRequest.getId();
+        Man man = dbSqlite.selectUserById(userByIdRequest.getId());
         List<Integer> ids = man.getAllid();
+        int last = ids.get(ids.size()-1);
+        if(curid  == last){
+            return gs.toJson(last);
+        }
         int index = ids.indexOf(curid);
         int inc = index + 1;
         int id = ids.get(inc);
-
+      //  int indexl = ids.indexOf(last);
       /*  if (ids.contains(curid)){
             System.out.println(ids);
             return gs.toJson(curid);
@@ -59,6 +64,26 @@ public class SelectC {
         else{
             return gs.toJson(usr.getError());
         }*/
+        return gs.toJson(id);
+    }
+    @ApiOperation(value = "Получить словарь значений по названию")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "OK", response = Greeting.class),
+            @ApiResponse(code = 400, message = "Ошибка валидации входных параметров"),
+            @ApiResponse(code = 500, message = "Внутренняя ошибка сервера")})
+    @RequestMapping(value = "CheckidB", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    public String Checkid(@RequestBody UserByIdRequestB userByIdRequestB) {
+        Gson gs = new Gson();
+        Integer curid = userByIdRequestB.getId();
+        Man man = dbSqlite.selectUserById(userByIdRequestB.getId());
+        List<Integer> ids = man.getAllid();
+        int last = 1;
+        if(ids.indexOf(curid) == 0){
+            return gs.toJson(last);
+        }
+        int index = ids.indexOf(curid);
+        int dec = index - 1;
+        int id = ids.get(dec);
         return gs.toJson(id);
     }
 }
