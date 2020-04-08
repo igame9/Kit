@@ -1,6 +1,6 @@
 package com.example.web.app.controllers;
 
-import com.example.web.app.api.request.Greeting;
+import com.example.web.app.api.request.InputRequest;
 import com.example.web.app.api.request.Man;
 import com.example.web.app.dao.DbSqlite;
 import com.google.gson.Gson;
@@ -25,7 +25,7 @@ public class RequestMethodController {
 
     @ApiOperation(value = "Получить словарь значений по названию")
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "OK", response = Greeting.class),
+            @ApiResponse(code = 200, message = "OK", response = InputRequest.class),
             @ApiResponse(code = 400, message = "Ошибка валидации входных параметров"),
             @ApiResponse(code = 500, message = "Внутренняя ошибка сервера")})
     @RequestMapping(value = "requestmethod", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -36,22 +36,21 @@ public class RequestMethodController {
 
     @ApiOperation(value = "Получить словарь значений по названию")
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "OK", response = Greeting.class),
+            @ApiResponse(code = 200, message = "OK", response = InputRequest.class),
             @ApiResponse(code = 400, message = "Ошибка валидации входных параметров"),
             @ApiResponse(code = 500, message = "Внутренняя ошибка сервера")})
     @RequestMapping(value = "requestmethod", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-    public String requestMethodPost(@RequestBody Greeting greeting) { //requestbody во в счех пост должно быть ,отправляем в модель greeting
+    public String requestMethodPost(@RequestBody InputRequest inputRequest) { //requestbody во в счех пост должно быть ,отправляем в модель greeting
         Man man = new Man();
         Gson gs = new Gson();
-        man.setFamily(greeting.getFamily());
-        man.setName(greeting.getName());
-        man.setUniversity(greeting.getUniversity());
-        man.setSecondname(greeting.getSecondname());
-        man.setGroup(greeting.getGroup());
-        man.setAge(greeting.getAge());
-        man.setCourse(greeting.getCourse());
-
-
+        man.setFamily(inputRequest.getFamily());
+        man.setName(inputRequest.getName());
+        man.setUniversity(inputRequest.getUniversity());
+        man.setSecondname(inputRequest.getSecondname());
+        man.setGroup(inputRequest.getGroup());
+        man.setAge(inputRequest.getAge());
+        man.setCourse(inputRequest.getCourse());
+        
         String name = man.getName();
         String fam = man.getFamily();
         String secondName = man.getSecondname();
@@ -60,9 +59,8 @@ public class RequestMethodController {
         Integer course = man.getCourse();
         String group = man.getGroup();
 
-
         DbSqlite.insertMan(name,fam,secondName,university,age,course,group);
-    return gs.toJson(greeting);
+    return gs.toJson(inputRequest);
 
     }
 }

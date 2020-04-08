@@ -1,6 +1,6 @@
 package com.example.web.app.controllers;
 
-import com.example.web.app.api.request.Greeting;
+import com.example.web.app.api.request.InputRequest;
 import com.example.web.app.api.request.Man;
 import com.example.web.app.api.request.UserByIdRequest;
 import com.example.web.app.api.request.UserByIdRequestB;
@@ -28,7 +28,7 @@ public class SelectC {
 
     @ApiOperation(value = "Получить словарь значений по названию")
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "OK", response = Greeting.class),
+            @ApiResponse(code = 200, message = "OK", response = InputRequest.class),
             @ApiResponse(code = 400, message = "Ошибка валидации входных параметров"),
             @ApiResponse(code = 500, message = "Внутренняя ошибка сервера")})
     @RequestMapping(value = "SelectUser", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -40,7 +40,7 @@ public class SelectC {
 
     @ApiOperation(value = "Получить словарь значений по названию")
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "OK", response = Greeting.class),
+            @ApiResponse(code = 200, message = "OK", response = InputRequest.class),
             @ApiResponse(code = 400, message = "Ошибка валидации входных параметров"),
             @ApiResponse(code = 500, message = "Внутренняя ошибка сервера")})
     @RequestMapping(value = "CheckidF", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -68,7 +68,7 @@ public class SelectC {
     }
     @ApiOperation(value = "Получить словарь значений по названию")
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "OK", response = Greeting.class),
+            @ApiResponse(code = 200, message = "OK", response = InputRequest.class),
             @ApiResponse(code = 400, message = "Ошибка валидации входных параметров"),
             @ApiResponse(code = 500, message = "Внутренняя ошибка сервера")})
     @RequestMapping(value = "CheckidB", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)

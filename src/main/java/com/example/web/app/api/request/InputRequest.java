@@ -1,8 +1,6 @@
 package com.example.web.app.api.request;
 
-import io.swagger.models.auth.In;
-
-public  class Greeting {
+public  class InputRequest {
     private String name;
     private String family;
     private String secondname;
