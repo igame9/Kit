@@ -90,6 +90,17 @@
                     {
                        // window.alert("Данные нашлись"+e.target.response)
                     }
+                    if( document.getElementById("output_name").value === 'undefined'){
+                        document.getElementById("output_name").value = '';
+                        document.getElementById("output_family").value = '';
+                        document.getElementById("output_secondname").value = '';
+                        document.getElementById("output_university").value = '';
+                        document.getElementById("output_age").value = '';
+                        document.getElementById("output_course").value = '';
+                        document.getElementById("output_group").value = '';
+                        alert('Таких данных не существует');
+                        return false;
+                    }
 
                  };
 
@@ -104,7 +115,6 @@
 		}
 
 		function Next() {
-			alert('Next');
 			var xhr = new XMLHttpRequest();
             xhr.open("POST", "CheckidF");
             xhr.setRequestHeader("Content-type", "application/json");
@@ -133,7 +143,6 @@
 		}
 
 		function Back() {
-			alert('Back');
 			var xhr = new XMLHttpRequest();
             xhr.open("POST", "CheckidB");
             xhr.setRequestHeader("Content-type", "application/json");

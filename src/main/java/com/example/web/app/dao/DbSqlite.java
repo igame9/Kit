@@ -70,6 +70,7 @@ public class DbSqlite implements InitializingBean {
 
         } catch (SQLException ex) {
             System.out.println("Ошибка получения пользователя из БД" + ex.getMessage());
+            log.log(Level.WARNING, "Не удалось выбрать пользователя", ex);
             return new Man();
         }
     }

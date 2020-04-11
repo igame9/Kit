@@ -34,7 +34,14 @@ public class SelectC {
     @RequestMapping(value = "SelectUser", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public String requestMethodPost(@RequestBody UserByIdRequest userByIdRequest) { //requestbody во в счех пост должно быть ,отправляем в модель greeting
         Gson gs = new Gson();
-        Man man = dbSqlite.selectUserById(userByIdRequest.getId());
+        int curid = userByIdRequest.getId();
+        List<Integer> allid = dbSqlite.getUsersId();
+        int last = allid.get(allid.size()-1);
+        if(curid > last){
+            Man lastmanindb = dbSqlite.selectUserById(last);
+            return gs.toJson(lastmanindb);
+        }
+        Man man = dbSqlite.selectUserById(curid);
         return gs.toJson(man);
     }
 
@@ -56,14 +63,6 @@ public class SelectC {
         int index = ids.indexOf(curid);
         int inc = index + 1;
         int id = ids.get(inc);
-      //  int indexl = ids.indexOf(last);
-      /*  if (ids.contains(curid)){
-            System.out.println(ids);
-            return gs.toJson(curid);
-        }
-        else{
-            return gs.toJson(usr.getError());
-        }*/
         return gs.toJson(id);
     }
     @ApiOperation(value = "Получить словарь значений по названию")
