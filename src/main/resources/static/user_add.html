@@ -12,7 +12,7 @@
             xhr.open("POST", "requestmethod");
             xhr.setRequestHeader("Content-type", "application/json");
             xhr.onload = (e)  => {
-                alert("Ваши данные:" + e.target.response)
+                alert("Ответ" + e.target.response)
                     if(xhr.status !== 200){
                         window.alert("Что-то пошло не так")
                     }
@@ -37,9 +37,9 @@
                             "course" : course,
                             "group" : group};
 
-            if(document.getElementById("name"&&"family"&&"secondname"&&"place").value == '')
+            if(document.getElementById("name"&&"family"&&"secondname"&&"place"&&"group").value == '')
 			{
-			    alert ('Введите обязательные первые 4 поля');
+			    alert ('Введите обязательные поля , отмеченные *');
 			    return false;
 			}
 
@@ -55,7 +55,7 @@
             xhr.send(JSON.stringify(params1));
 
              if(xhr.readyState = 4){
-                alert('Данные успешно отправлены');
+                alert('Данные отправлены на сервер на проверку');
              }
             }
 
@@ -84,7 +84,7 @@
 			Номер курса <input id="course" type="number" min="1" value="">
 		</label><br>
 		<label>
-			Группа <input id="group" type="text" value="">
+			Группа* <input id="group" type="text" value="">
 		</label><br>
 		<label>
 			<input type="submit" value="Отправить">

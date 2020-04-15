@@ -13,6 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 @RestController
 public class RequestMethodController {
@@ -59,8 +62,28 @@ public class RequestMethodController {
         Integer course = man.getCourse();
         String group = man.getGroup();
 
-        DbSqlite.insertMan(name,fam,secondName,university,age,course,group);
+       System.out.println(checkData(name,fam,secondName,university,age,course,group));
+       if(checkData(name,fam,secondName,university,age,course,group).isEmpty()){
+           DbSqlite.insertMan(name,fam,secondName,university,age,course,group);
+       }
+       else{
+           return gs.toJson(checkData(name,fam,secondName,university,age,course,group));
+       }
     return gs.toJson(inputRequest);
 
+    }
+    public List<String> checkData(String name, String fam, String secondName, String university,Integer age, Integer course, String group) {
+
+        List<String> errors = new ArrayList<>();
+
+        if(name == null || name.trim().isEmpty()) errors.add("Некорректное имя");
+        if(fam == null || fam.trim().isEmpty()) errors.add("Некорректная фамилия");
+        if(secondName == null || secondName.trim().isEmpty()) errors.add("Некорректное отчество");
+        if(university == null || university.trim().isEmpty()) errors.add("Некорректное место учебы ");
+        if(age == null || age.toString().trim().isEmpty() || age > 110) errors.add("Возраст не может быть больше 110 лет");
+        if(course == null || course.toString().trim().isEmpty() || course > 6) errors.add(" Номер курса не может быть больше 6 ");
+        if(group == null || group.trim().isEmpty())errors.add("Некорректный номер группы");
+
+        return errors;
     }
 }
