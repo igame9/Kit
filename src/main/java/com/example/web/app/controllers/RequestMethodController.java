@@ -53,7 +53,11 @@ public class RequestMethodController {
         man.setGroup(inputRequest.getGroup());
         man.setAge(inputRequest.getAge());
         man.setCourse(inputRequest.getCourse());
-        
+        man.setLogin(inputRequest.getLogin());
+        man.setPassword(inputRequest.getPassword());
+        man.setGender(inputRequest.getGender());
+        man.setKindeducation(inputRequest.getKindeducation());
+
         String name = man.getName();
         String fam = man.getFamily();
         String secondName = man.getSecondname();
@@ -61,18 +65,22 @@ public class RequestMethodController {
         Integer age = man.getAge();
         Integer course = man.getCourse();
         String group = man.getGroup();
+        String login = man.getLogin();
+        String password = man.getPassword();
+        String gender = man.getGender();
+        String kindofeducation = man.getKindeducation();
 
-       System.out.println(checkData(name,fam,secondName,university,age,course,group));
-       if(checkData(name,fam,secondName,university,age,course,group).isEmpty()){
-           DbSqlite.insertMan(name,fam,secondName,university,age,course,group);
+      // System.out.println(checkData(name,fam,secondName,university,age,course,group));
+       if(checkData(name,fam,secondName,university,age,course,group,login,password).isEmpty()){
+           DbSqlite.insertMan(name,fam,secondName,university,age,course,group,login,password,gender,kindofeducation);
        }
        else{
-           return gs.toJson(checkData(name,fam,secondName,university,age,course,group));
+           return gs.toJson(checkData(name,fam,secondName,university,age,course,group,login,password));
        }
     return gs.toJson(inputRequest);
 
     }
-    public List<String> checkData(String name, String fam, String secondName, String university,Integer age, Integer course, String group) {
+    public List<String> checkData(String name, String fam, String secondName, String university,Integer age, Integer course, String group,String login,String password) {
 
         List<String> errors = new ArrayList<>();
 
@@ -80,9 +88,13 @@ public class RequestMethodController {
         if(fam == null || fam.trim().isEmpty()) errors.add("Некорректная фамилия");
         if(secondName == null || secondName.trim().isEmpty()) errors.add("Некорректное отчество");
         if(university == null || university.trim().isEmpty()) errors.add("Некорректное место учебы ");
-        if(age == null || age.toString().trim().isEmpty() || age > 110) errors.add("Возраст не может быть больше 110 лет");
-        if(course == null || course.toString().trim().isEmpty() || course > 6) errors.add(" Номер курса не может быть больше 6 ");
         if(group == null || group.trim().isEmpty())errors.add("Некорректный номер группы");
+        if(login == null || login.trim().isEmpty()||login.length() > 6)errors.add("Логин не может превышать 6 символов");
+        if(password == null || password.trim().isEmpty()||password.length() != 4)errors.add("Пароль должен содержать 4 цифры");
+        if(course > 6) errors.add("Номер курса не может быть больше 6 ");
+        if(age > 120) errors.add("Возраст не может быть больше 120 лет");
+
+
 
         return errors;
     }

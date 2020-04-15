@@ -16,7 +16,6 @@
                     if(xhr.status !== 200){
                         window.alert("Что-то пошло не так")
                     }
-
             };
             var name = document.getElementById("name").value;
             var fam = document.getElementById("family").value;
@@ -25,9 +24,14 @@
             var age= document.getElementById("age").value;
             var course = document.getElementById("course").value;
             var group = document.getElementById("group").value;
+            var login = document.getElementById("login").value;
+            var password = document.getElementById("password").value;
+            var gender = document.getElementById("gender").value;
+            var kindeducation = getCheckBoxes();
+
+
             var agtst = Number(age);
             var coutst = Number(course);
-
 
             var params1 = { "name" : name,
                             "family" : fam,
@@ -35,9 +39,13 @@
                             "university" : university,
                             "age" : age,
                             "course" : course,
-                            "group" : group};
+                            "group" : group,
+                            "login":login,
+                            "password":password,
+                            "gender":gender,
+                            "kindeducation":kindeducation };
 
-            if(document.getElementById("name"&&"family"&&"secondname"&&"place"&&"group").value == '')
+            if(document.getElementById("name"&&"family"&&"secondname"&&"place"&&"group"&&"login"&&"password").value == '')
 			{
 			    alert ('Введите обязательные поля , отмеченные *');
 			    return false;
@@ -55,9 +63,19 @@
             xhr.send(JSON.stringify(params1));
 
              if(xhr.readyState = 4){
-                alert('Данные отправлены на сервер на проверку');
+                alert(Данные проверяются...');
              }
-            }
+          }
+        function getCheckBoxes() {
+             var checkboxes = document.getElementsByClassName('checkbox');
+             var checkbox = "";
+             for (var index = 0; index < checkboxes.length; index++) {
+             if (checkboxes[index].checked) {
+             checkbox = checkboxes[index].value;
+               }
+         }
+             return checkbox;
+}
 
 	</script>
 </head>
@@ -65,6 +83,12 @@
 <div class="wrapper">
 	<button class="but2" onclick="document.location='site.html'">Перейти к поиску</button>
 	<form onsubmit="getUser()">
+		<label>
+			Логин* <input id="login" type="text" value="">
+		</label><br>
+		<label>
+			Пароль* <input id="password" type="text" value="">
+		</label><br>
 		<label>
 			Имя* <input id="name" type="text" value="">
 		</label><br>
@@ -86,6 +110,14 @@
 		<label>
 			Группа* <input id="group" type="text" value="">
 		</label><br>
+		<label>Пол</label><br>
+		<select id="gender">
+			<option value="Женский">Женщина</option>
+			<option value="Мужской">Мужчина</option>
+		</select><br>
+		<label>Тип образования</label><br>
+		<label><input value="Гуманитарное образование" class="checkbox" type="checkbox">Гуманитарное</label>
+		<label><input value="Техническое образование" class="checkbox" type="checkbox">Техническое</label>
 		<label>
 			<input type="submit" value="Отправить">
 		</label>

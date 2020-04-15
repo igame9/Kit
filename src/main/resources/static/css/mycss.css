@@ -70,3 +70,20 @@ text-shadow: 1px 1px 2px black, 0 0 5em orange;
 color:SandyBrown;
 font-family:  courier new;
 }
+.test{
+color:SandyBrown;
+font-size:large;
+}
+.next{
+text-shadow: 1px 1px 2px black, 0 0 5em orange;
+color:black;
+font-family:  courier new;
+}
+.back{
+text-shadow: 1px 1px 2px black, 0 0 5em orange;
+color:black;
+font-family:  courier new;
+}
+.checkbox{
+color:green
+}
