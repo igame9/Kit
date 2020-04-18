@@ -21,7 +21,7 @@
             var fam = document.getElementById("family").value;
             var secondname = document.getElementById("secondname").value;
             var university = document.getElementById("place").value;
-            var age= document.getElementById("age").value;
+            var age = document.getElementById("age").value;
             var course = document.getElementById("course").value;
             var group = document.getElementById("group").value;
             var login = document.getElementById("login").value;
@@ -46,7 +46,7 @@
                             "gender":gender,
                             "kindeducation":kindeducation};
 
-            if(document.getElementById("name"&&"family"&&"secondname"&&"place"&&"group"&&"login"&&"password").value == '')
+            if(document.getElementById("name"||"family"||"secondname"||"place"||"group"||"login"||"password").value == '')
 			{
 			    alert ('Введите обязательные поля , отмеченные *');
 			    return false;
@@ -83,12 +83,12 @@
 <body>
 <div class="wrapper">
 	<button class="but2" onclick="document.location='site.html'">Перейти к поиску</button>
-	<form onsubmit="getUser()">
+	<form id="form">
 		<label>
 			Логин* <input id="login" type="text" value="">
 		</label><br>
 		<label>
-			Пароль* <input id="password" type="text" value="">
+			Пароль* <input id="password" type="password" value="">
 		</label><br>
 		<label>
 			Имя* <input id="name" type="text" value="">
@@ -120,7 +120,7 @@
 		<label><input value="Гуманитарное образование" class="checkbox" type="checkbox">Гуманитарное</label>
 		<label><input value="Техническое образование" class="checkbox" type="checkbox">Техническое</label>
 		<label>
-			<input type="submit" value="Отправить">
+			<input type="button" value="Отправить" onclick="getUser()">
 		</label>
 	</form>
 </div>

@@ -32,34 +32,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/swagger-ui.html/**").hasRole("ADMIN")
                 .antMatchers("/swagger-resources/**").hasRole("ADMIN")
                 .antMatchers("/webjars/springfox-swagger-ui/**").hasRole("ADMIN")
-                .antMatchers("/user_add**").permitAll()
-                .antMatchers("/site**").hasRole("USER")
+                .antMatchers("/user_add.html").permitAll()
+                .antMatchers("/site.html").hasRole("USER")
                 .antMatchers("/css/**").permitAll()
                 .antMatchers("/images/**").permitAll()
+                .antMatchers("/requestmethod").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
                 .defaultSuccessUrl("/site.html");
 
-    }
-    @Bean
-    @Override
-    public UserDetailsService userDetailsService(){
-       UserDetails user = User.withDefaultPasswordEncoder()
-               .username("user")
-               .password("9810")
-               .roles("USER")
-               .build();
-
-        UserDetails admin = User.withDefaultPasswordEncoder()
-                .username("admin")
-                .password("9810")
-                .roles("ADMIN")
-                .build();
-
-
-
-        return new InMemoryUserDetailsManager(user,admin);
     }
 
 }
