@@ -41,14 +41,14 @@ public class DbSqlite implements InitializingBean {
     }
 
     //Когда ввел данные
-    public static void insertMan(String name, String fam, String secondName, String university, Integer age, Integer course, String group,String login, String password,String gender,String kindofeducation) {
+    public static void insertMan(String name, String fam, String secondName, String university, Integer age, Integer course, String group,String login, String password,String gender,String kindofeducation,String role) {
         //  User user = new User(man.getId(), man.getName() , man.getFamily() , man.getUniversity());
        // String query = ("insert into Man (Name,Family,SecondName,University,Age,Course,Gr) values('" + name + "','" + fam + "','" + secondName + "','" + university + "','" + age + "','" + course + "','" + group + "')");
-        String query = "insert into Man (Name,Family,SecondName,University,Age,Course,Gr,Login,Password,Gender,Kindofeducation) " + "values ('%s', '%s', '%s', '%s', '%d', '%d', '%s', '%s', '%s', '%s', '%s')";
+        String query = "insert into Man (Name,Family,SecondName,University,Age,Course,Gr,Login,Password,Gender,Kindofeducation,Role) " + "values ('%s', '%s', '%s', '%s', '%d', '%d', '%s', '%s', '%s', '%s', '%s', '%s')";
         
         try (Connection conn = DriverManager.getConnection("jdbc:sqlite:" + dbPath);
              Statement stat = conn.createStatement()) {
-            stat.executeUpdate(String.format(query, name, fam, secondName,university, age, course, group,login,password,gender,kindofeducation));
+            stat.executeUpdate(String.format(query, name, fam, secondName,university, age, course, group,login,password,gender,kindofeducation,role));
         } catch (SQLException ex) {
             System.out.println("Ошибка  записи в БД" + ex.getMessage() + ex.getCause());
         }

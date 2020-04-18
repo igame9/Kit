@@ -8,7 +8,7 @@
 
 	<script type="text/javascript">
         function getUser() {
-               var xhr = new XMLHttpRequest();
+            var xhr = new XMLHttpRequest();
             xhr.open("POST", "requestmethod");
             xhr.setRequestHeader("Content-type", "application/json");
             xhr.onload = (e)  => {
@@ -30,6 +30,7 @@
             var kindeducation = getCheckBoxes();
 
 
+
             var agtst = Number(age);
             var coutst = Number(course);
 
@@ -43,7 +44,7 @@
                             "login":login,
                             "password":password,
                             "gender":gender,
-                            "kindeducation":kindeducation };
+                            "kindeducation":kindeducation};
 
             if(document.getElementById("name"&&"family"&&"secondname"&&"place"&&"group"&&"login"&&"password").value == '')
 			{
@@ -63,7 +64,7 @@
             xhr.send(JSON.stringify(params1));
 
              if(xhr.readyState = 4){
-                alert(Данные проверяются...');
+                alert('Данные проверяются...');
              }
           }
         function getCheckBoxes() {

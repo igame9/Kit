@@ -8,6 +8,7 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import org.springframework.http.MediaType;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -57,6 +58,7 @@ public class RequestMethodController {
         man.setPassword(inputRequest.getPassword());
         man.setGender(inputRequest.getGender());
         man.setKindeducation(inputRequest.getKindeducation());
+        man.setRole("USER");
 
         String name = man.getName();
         String fam = man.getFamily();
@@ -66,21 +68,25 @@ public class RequestMethodController {
         Integer course = man.getCourse();
         String group = man.getGroup();
         String login = man.getLogin();
-        String password = man.getPassword();
         String gender = man.getGender();
         String kindofeducation = man.getKindeducation();
+        BCryptPasswordEncoder coder = new BCryptPasswordEncoder();
+        String password = man.getPassword();
+        String coderpass = coder.encode(password);
+        String role = man.getRole();
 
-      // System.out.println(checkData(name,fam,secondName,university,age,course,group));
-       if(checkData(name,fam,secondName,university,age,course,group,login,password).isEmpty()){
-           DbSqlite.insertMan(name,fam,secondName,university,age,course,group,login,password,gender,kindofeducation);
+
+        // System.out.println(checkData(name,fam,secondName,university,age,course,group));
+       if(checkData(name,fam,secondName,university,age,course,group,login,password,role).isEmpty()){
+           DbSqlite.insertMan(name,fam,secondName,university,age,course,group,login,coderpass,gender,kindofeducation,role);
        }
        else{
-           return gs.toJson(checkData(name,fam,secondName,university,age,course,group,login,password));
+           return gs.toJson(checkData(name,fam,secondName,university,age,course,group,login,password,role));
        }
     return gs.toJson(inputRequest);
 
     }
-    public List<String> checkData(String name, String fam, String secondName, String university,Integer age, Integer course, String group,String login,String password) {
+    public List<String> checkData(String name, String fam, String secondName, String university,Integer age, Integer course, String group,String login,String password,String role) {
 
         List<String> errors = new ArrayList<>();
 
@@ -93,6 +99,8 @@ public class RequestMethodController {
         if(password == null || password.trim().isEmpty()||password.length() != 4)errors.add("Пароль должен содержать 4 цифры");
         if(course > 6) errors.add("Номер курса не может быть больше 6 ");
         if(age > 120) errors.add("Возраст не может быть больше 120 лет");
+        if(role == null || role.trim().isEmpty())errors.add("Ошибка роли");
+
 
 
 

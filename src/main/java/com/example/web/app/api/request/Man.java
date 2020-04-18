@@ -15,7 +15,16 @@ public class Man {
     private String password;
     private String gender;
     private String kindeducation;
+    private String role;
 
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
 
     public String getKindeducation() {
         return kindeducation;
