@@ -112,7 +112,7 @@ public class DbSqlite implements InitializingBean {
     }
 
     public static Man selectUserByLogin(String login) {
-        String query = "select * from Man where Login = " + login;
+        String query = "select * from Man where Login = " + "'"+ login +"'";
         try (Connection conn = DriverManager.getConnection("jdbc:sqlite:" + dbPath);
              Statement stat = conn.createStatement()) {
             ResultSet resultSet = stat.executeQuery(query);
@@ -123,7 +123,7 @@ public class DbSqlite implements InitializingBean {
             return man;
 
         } catch (SQLException ex) {
-            System.out.println("Ошибка получения пользователя из БДsssssss" + ex.getMessage());
+            System.out.println("Ошибка получения пользователя из БД (Login)" + ex.getMessage());
             return new Man();
         }
     }

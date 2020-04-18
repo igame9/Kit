@@ -33,14 +33,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/swagger-resources/**").hasRole("ADMIN")
                 .antMatchers("/webjars/springfox-swagger-ui/**").hasRole("ADMIN")
                 .antMatchers("/user_add.html").permitAll()
-                .antMatchers("/site.html").hasRole("USER")
+                .antMatchers("/site.html").hasAnyRole("ADMIN","USER")
                 .antMatchers("/css/**").permitAll()
                 .antMatchers("/images/**").permitAll()
-                .antMatchers("/requestmethod").permitAll()
+                .antMatchers("/requestmethod").hasAnyRole("ADMIN","USER")
+                .antMatchers("/index.html").permitAll()
+                .antMatchers("/SelectUser").hasAnyRole("ADMIN","USER")
+                .antMatchers("/CheckidF").hasAnyRole("ADMIN","USER")
+                .antMatchers("/CheckidB").hasAnyRole("ADMIN","USER")
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
-                .defaultSuccessUrl("/site.html");
+                .defaultSuccessUrl("/index.html");
+
+
 
     }
 

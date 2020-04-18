@@ -94,7 +94,7 @@ public class RequestMethodController {
         List<String> errors = new ArrayList<>();
         List<String> nick = dbSqlite.getUsersLogin();
 
-        if(name == null || name.trim().isEmpty()||name.length()>4) errors.add("Некорректное имя");
+        if(name == null || name.trim().isEmpty()||name.length()<4) errors.add("Некорректное имя");
         if(fam == null || fam.trim().isEmpty()) errors.add("Некорректная фамилия");
         if(secondName == null || secondName.trim().isEmpty()) errors.add("Некорректное отчество");
         if(university == null || university.trim().isEmpty()) errors.add("Некорректное место учебы ");
