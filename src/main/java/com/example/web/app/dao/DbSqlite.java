@@ -67,6 +67,10 @@ public class DbSqlite implements InitializingBean {
             man.setAge(resultSet.getInt("Age"));
             man.setCourse(resultSet.getInt("Course"));
             man.setGroup(resultSet.getString("Gr"));
+            man.setLogin(resultSet.getString("Login"));
+            man.setGender(resultSet.getString("Gender"));
+            man.setKindeducation(resultSet.getString("Kindofeducation"));
+            man.setRole(resultSet.getString("Role"));
             man.setAllid(getUsersId());
             return man;
 
@@ -124,9 +128,14 @@ public class DbSqlite implements InitializingBean {
 
         } catch (SQLException ex) {
             System.out.println("Ошибка получения пользователя из БД (Login)" + ex.getMessage());
-            return new Man();
+            Man errorman = new Man();
+            errorman.setLogin("Error");
+            errorman.setPassword("Error");
+            errorman.setRole("Error");
+
+            return  errorman;
+
         }
     }
-
 
 }

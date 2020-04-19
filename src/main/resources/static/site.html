@@ -15,8 +15,8 @@
 <div class="Mtext">
 	<div class="test">
 		<p><b>Здесь располагается поиск пользователей по сайту</p>
-		<button class="but1" onclick="document.location='user_add.html'">Добавить пользователя</button>
-	</div>
+		<a style="color:SandyBrown"  href="/webapp-example/logout">Выйти</a>
+</div>
 		<form>
 			<label>
 				Введите id Студента<input id="input_user_id" type="number" min="1" value="">
@@ -49,6 +49,22 @@
 				Группа:
 				<output id="output_group" type="text" value=""></output>
 			</label><br>
+			<label>
+				Логин:
+				<output id="output_login" type="text" value=""></output>
+			</label><br>
+			<label>
+				Пол:
+				<output id="output_gender" type="text" value=""></output>
+			</label><br>
+			<label>
+				Тип образования:
+				<output id="output_kindofeducation" type="text" value=""></output>
+			</label><br>
+			<label>
+				Роль:
+				<output id="output_role" type="text" value=""></output>
+			</label><br>
 			<p><input class="getUsers" onclick="getUser()" type="button" value="Получить пользователя"></p>
 			<p><input class="next" onclick="Next()" type="button" value="Вперед"></p>
 			<p><input class="back" onclick="Back()" type="button" value="Назад"></p>
@@ -70,6 +86,10 @@
                 var age = data.age;
                 var course = data.course;
                 var group = data.group;
+                var login = data.login;
+                var gender = data.gender;
+                var kindofeducation = data.kindofeducation;
+                var role = data.role;
 
                 document.getElementById("output_name").value = name;
                 document.getElementById("output_family").value = family;
@@ -78,6 +98,11 @@
                 document.getElementById("output_age").value = age;
                 document.getElementById("output_course").value = course;
                 document.getElementById("output_group").value = group;
+                document.getElementById("output_login").value = login;
+                document.getElementById("output_gender").value = gender;
+                document.getElementById("output_kindofeducation").value = kindofeducation;
+                document.getElementById("output_role").value = role;
+
                 if(xhr.status != 200){
                         window.alert("Что-то пошло не так")
                     }

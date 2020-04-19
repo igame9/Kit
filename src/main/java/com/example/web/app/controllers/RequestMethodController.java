@@ -8,7 +8,6 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import org.springframework.http.MediaType;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -39,7 +38,7 @@ public class RequestMethodController {
     }
 
 
-    @ApiOperation(value = "Получить словарь значений по названию")
+    @ApiOperation(value = "Регистация")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "OK", response = InputRequest.class),
             @ApiResponse(code = 400, message = "Ошибка валидации входных параметров"),
@@ -108,4 +107,5 @@ public class RequestMethodController {
 
         return errors;
     }
+
 }

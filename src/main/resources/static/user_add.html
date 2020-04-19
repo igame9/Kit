@@ -15,7 +15,9 @@
                 alert("Ответ" + e.target.response)
                     if(xhr.status !== 200){
                         window.alert("Что-то пошло не так")
+
                     }
+
             };
             var name = document.getElementById("name").value;
             var fam = document.getElementById("family").value;
@@ -46,7 +48,7 @@
                             "gender":gender,
                             "kindeducation":kindeducation};
 
-            if(document.getElementById("name"||"family"||"secondname"||"place"||"group"||"login"||"password").value == '')
+            if(document.getElementById("age"||"family"||"name"||"secondname"||"place"||"group"||"login"||"password").value === '')
 			{
 			    alert ('Введите обязательные поля , отмеченные *');
 			    return false;
@@ -82,7 +84,7 @@
 </head>
 <body>
 <div class="wrapper">
-	<button class="but2" onclick="document.location='site.html'">На главную</button>
+	<button class="but2" onclick="document.location='index.html'">На главную</button>
 	<form id="form">
 		<label>
 			Логин* <input id="login" type="text" value="">

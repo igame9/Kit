@@ -10,10 +10,16 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import org.springframework.http.MediaType;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 @RestController
@@ -26,7 +32,7 @@ public class SelectC {
 
     public static final String REQUEST_METHOD_VIEW_NAME = "request_method";
 
-    @ApiOperation(value = "Получить словарь значений по названию")
+    @ApiOperation(value = "Выбор пользователя по id из БД")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "OK", response = InputRequest.class),
             @ApiResponse(code = 400, message = "Ошибка валидации входных параметров"),
@@ -42,10 +48,12 @@ public class SelectC {
             return gs.toJson(lastmanindb);
         }
         Man man = dbSqlite.selectUserById(curid);
+        String nick = SecurityContextHolder.getContext().getAuthentication().getName();
+        System.out.println(nick);
         return gs.toJson(man);
     }
 
-    @ApiOperation(value = "Получить словарь значений по названию")
+    @ApiOperation(value = "Проверка id на наличие в БД для функции next() js")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "OK", response = InputRequest.class),
             @ApiResponse(code = 400, message = "Ошибка валидации входных параметров"),
@@ -65,7 +73,7 @@ public class SelectC {
         int id = ids.get(inc);
         return gs.toJson(id);
     }
-    @ApiOperation(value = "Получить словарь значений по названию")
+    @ApiOperation(value = "Проверка id на наличие в БД для функции back() js")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "OK", response = InputRequest.class),
             @ApiResponse(code = 400, message = "Ошибка валидации входных параметров"),
@@ -85,4 +93,5 @@ public class SelectC {
         int id = ids.get(dec);
         return gs.toJson(id);
     }
+
 }
