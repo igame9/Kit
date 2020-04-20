@@ -87,3 +87,8 @@ font-family:  courier new;
 .checkbox{
 color:green
 }
+.profile{
+text-shadow: 1px 1px 2px black, 0 0 5em orange;
+color:black;
+font-family:  courier new;
+}

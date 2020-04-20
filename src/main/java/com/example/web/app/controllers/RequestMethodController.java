@@ -77,7 +77,6 @@ public class RequestMethodController {
         String role = man.getRole();
         String succes = "Вы зарегистрированы";
 
-        // System.out.println(checkData(name,fam,secondName,university,age,course,group));
        if(checkData(name,fam,secondName,university,age,course,group,login,password,role).isEmpty()){
            DbSqlite.insertMan(name,fam,secondName,university,age,course,group,login,coderpass,gender,kindofeducation,role);
            return  gs.toJson(succes);
