@@ -54,7 +54,7 @@ public class DbSqlite implements InitializingBean {
         }
     }
 
-    public Man selectUserById(int id) {
+    public  Man selectUserById(int id) {
         String query = "select * from Man where id = " + id;
         try (Connection conn = DriverManager.getConnection("jdbc:sqlite:" + dbPath);
              Statement stat = conn.createStatement()) {
@@ -116,12 +116,21 @@ public class DbSqlite implements InitializingBean {
     }
 
     public static Man selectUserByLogin(String login) {
-        String query = "select * from Man where Login = " + "'"+ login +"'";
+        String query = "select * from Man where Login = " + "'" + login + "'";
         try (Connection conn = DriverManager.getConnection("jdbc:sqlite:" + dbPath);
              Statement stat = conn.createStatement()) {
             ResultSet resultSet = stat.executeQuery(query);
             Man man = new Man();
+            man.setName(resultSet.getString("Name"));
+            man.setFamily(resultSet.getString("Family"));
+            man.setSecondname(resultSet.getString("SecondName"));
+            man.setUniversity(resultSet.getString("University"));
+            man.setAge(resultSet.getInt("Age"));
+            man.setCourse(resultSet.getInt("Course"));
+            man.setGroup(resultSet.getString("Gr"));
             man.setLogin(resultSet.getString("Login"));
+            man.setGender(resultSet.getString("Gender"));
+            man.setKindeducation(resultSet.getString("Kindofeducation"));
             man.setPassword(resultSet.getString("Password"));
             man.setRole(resultSet.getString("Role"));
             return man;
@@ -132,9 +141,19 @@ public class DbSqlite implements InitializingBean {
             errorman.setLogin("Error");
             errorman.setPassword("Error");
             errorman.setRole("Error");
+            return errorman;
 
-            return  errorman;
+        }
+    }
 
+    public static void changeTable(String name, String fam, String secondName, String university, Integer age, Integer course, String group, String login,String me) {
+        String query = "UPDATE Man set Name = '%s' , Family = '%s' ,Secondname = '%s' , University = '%s' , Age = '%d',Course = '%d' , Gr = '%s' , Login = '%s' " + "WHERE Login = '%s'";
+        try (Connection conn = DriverManager.getConnection("jdbc:sqlite:" + dbPath);
+             Statement stat = conn.createStatement()) {
+            stat.executeUpdate(String.format(query, name, fam, secondName, university, age, course, group, login,me));
+
+        } catch (SQLException ex) {
+            System.out.println("Ошибка модификации профиля)" + ex.getMessage());
         }
     }
 

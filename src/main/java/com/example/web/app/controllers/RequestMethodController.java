@@ -27,6 +27,7 @@ public class RequestMethodController {
     }
     public static final String REQUEST_METHOD_VIEW_NAME = "request_method";
 
+
     @ApiOperation(value = "Получить словарь значений по названию")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "OK", response = InputRequest.class),
@@ -69,12 +70,12 @@ public class RequestMethodController {
         String group = man.getGroup();
         String login = man.getLogin();
         String gender = man.getGender();
-        String kindofeducation = man.getKindeducation();
+        String kindofeducation = man.getKindeducation().trim();
         BCryptPasswordEncoder coder = new BCryptPasswordEncoder();
         String password = man.getPassword();
         String coderpass = coder.encode(password);
         String role = man.getRole();
-        String succes = "Вы зарегестрированы";
+        String succes = "Вы зарегистрированы";
 
         // System.out.println(checkData(name,fam,secondName,university,age,course,group));
        if(checkData(name,fam,secondName,university,age,course,group,login,password,role).isEmpty()){
@@ -88,7 +89,7 @@ public class RequestMethodController {
 
 
     }
-    public List<String> checkData(String name, String fam, String secondName, String university,Integer age, Integer course, String group,String login,String password,String role) {
+    public List<String> checkData(String name, String fam, String secondName, String university, Integer age, Integer course, String group, String login, String password, String role) {
 
         List<String> errors = new ArrayList<>();
         List<String> nick = dbSqlite.getUsersLogin();

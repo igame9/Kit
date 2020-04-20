@@ -1,8 +1,7 @@
 <!DOCTYPE html>
-<html lang="ru">
 <head>
 	<meta charset="utf-8"/>
-	<title>Мой первый сервис</title>
+	<title>Регистрация</title>
 
 	<link href="css/css2.css" rel="stylesheet"/>
 
@@ -17,6 +16,11 @@
                         window.alert("Что-то пошло не так")
 
                     }
+            var data = JSON.parse(e.target.response);
+            var res = 'Вы зарегистрированы';
+                    if(data.trim == res.trim){
+                         window.location.replace("/webapp-example/index.html");
+                    }
 
             };
             var name = document.getElementById("name").value;
@@ -30,8 +34,6 @@
             var password = document.getElementById("password").value;
             var gender = document.getElementById("gender").value;
             var kindeducation = getCheckBoxes();
-
-
 
             var agtst = Number(age);
             var coutst = Number(course);
@@ -119,8 +121,8 @@
 			<option value="Мужской">Мужчина</option>
 		</select><br>
 		<label>Тип образования</label><br>
-		<label><input value="Гуманитарное образование" class="checkbox" type="checkbox">Гуманитарное</label>
-		<label><input value="Техническое образование" class="checkbox" type="checkbox">Техническое</label>
+		<label><input value="Гуманитарное" class="checkbox" type="checkbox">Гуманитарное</label>
+		<label><input value="Техническоее" class="checkbox" type="checkbox">Техническое</label>
 		<label>
 			<input type="button" value="Отправить" onclick="getUser()">
 		</label>
