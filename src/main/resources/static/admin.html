@@ -22,7 +22,6 @@
                 var group = data.group;
                 var login = data.login;
                 var gender = data.gender;
-                var kindeducation = data.kindeducation;
                 var role = data.role;
                 var password = data.password;
 
@@ -35,7 +34,6 @@
                 document.getElementById("output_group").value = group;
                 document.getElementById("output_login").value = login;
                 document.getElementById("output_gender").value = gender;
-                document.getElementById("output_kindofeducation").value = kindeducation;
                 document.getElementById("output_role").value = role;
                 document.getElementById("output_password").value = password;
 
@@ -92,7 +90,6 @@
             var group = document.getElementById("output_group").value;
             var login = document.getElementById("output_login").value;
             var gender = document.getElementById("output_gender").value;
-            var kindofeducation = document.getElementById("output_kindofeducation").value;
             var role = document.getElementById("output_role").value;
             var id = document.getElementById("input_user_id").value;
             var password = document.getElementById("output_password").value;
@@ -111,7 +108,6 @@
                             "group" : group,
                             "login":login,
                             "gender":gender,
-                            "kindofeducation":kindofeducation,
                             "role":role,
                             "password":password,
                             "id":id};
@@ -214,10 +210,6 @@
 		<input id="output_gender" type="text" value="">
 	</label><br>
 	<label>
-		Тип образования:
-		<input id="output_kindofeducation" type="text" value="">
-	</label><br>
-	<label>
 		Роль:
 		<input id="output_role" type="text" value="">
 	</label><br>
@@ -226,6 +218,7 @@
 	<p><input class="but2" onclick="Save()" type="button" value="Сохранить изменения"></p>
 	<p><input class="but3" onclick="allId()" type="button" value="Все доступные id"></p>
 	<p><input class="but4" onclick="delAcc()" type="button" value="Удалить аккаунт"></p>
+		<a style="color:black" href="/webapp-example/site.html" class="ref">На главную</a>
 	</div>
 </form>
 </body>

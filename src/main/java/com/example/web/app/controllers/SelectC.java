@@ -182,7 +182,6 @@ public class SelectC {
         man.setGroup(inputRequest.getGroup());
         man.setLogin(inputRequest.getLogin());
         man.setGender(inputRequest.getGender());
-        man.setKindeducation(inputRequest.getKindeducation());
         man.setRole(inputRequest.getRole());
         man.setPassword(inputRequest.getPassword());
 
@@ -196,7 +195,6 @@ public class SelectC {
         String group = man.getGroup();
         String login = man.getLogin();
         String gender = man.getGender();
-        String kindofeducation = man.getKindeducation();
         String role = man.getRole();
         String password = man.getPassword();
         BCryptPasswordEncoder coder = new BCryptPasswordEncoder();
@@ -205,7 +203,7 @@ public class SelectC {
 
 
         if(checkchangeableData(name,fam,secondName,university,age,course,group,login).isEmpty()){
-            DbSqlite.changeaccadm(name,fam,secondName,university,age,course,group,login,gender,kindofeducation,role,coderpass,id);
+            DbSqlite.changeaccadm(name,fam,secondName,university,age,course,group,login,gender,role,coderpass,id);
             return gs.toJson(succes);
         }
         else{
