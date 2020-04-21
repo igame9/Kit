@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<head>
+	<link href="css/adm.css" rel="stylesheet"/>
+	<meta charset="UTF-8">
+	<title>Страница администратора</title>
+</head>
+<header align="center" class="head">Админ-панель</header>
+<body>
+<script type="text/javascript">
+        function getUser() {
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "SelectUser");
+            xhr.setRequestHeader("Content-type", "application/json");
+            xhr.onload = (e) => {
+                var data = JSON.parse(e.target.response);
+                var name = data.name;
+                var family = data.family;
+                var secondname = data.secondname;
+                var university = data.university;
+                var age = data.age;
+                var course = data.course;
+                var group = data.group;
+                var login = data.login;
+                var gender = data.gender;
+                var kindeducation = data.kindeducation;
+                var role = data.role;
+
+                document.getElementById("output_name").value = name;
+                document.getElementById("output_family").value = family;
+                document.getElementById("output_secondname").value = secondname;
+                document.getElementById("output_university").value = university;
+                document.getElementById("output_age").value = age;
+                document.getElementById("output_course").value = course;
+                document.getElementById("output_group").value = group;
+                document.getElementById("output_login").value = login;
+                document.getElementById("output_gender").value = gender;
+                document.getElementById("output_kindofeducation").value = kindeducation;
+                document.getElementById("output_role").value = role;
+
+                if(xhr.status != 200){
+                        window.alert("Что-то пошло не так")
+                    }
+                    else
+                    {
+                       // window.alert("Данные нашлись"+e.target.response)
+                    }
+                    if( document.getElementById("output_name").value === 'undefined'){
+                        document.getElementById("output_name").value = '';
+                        document.getElementById("output_family").value = '';
+                        document.getElementById("output_secondname").value = '';
+                        document.getElementById("output_university").value = '';
+                        document.getElementById("output_age").value = '';
+                        document.getElementById("output_course").value = '';
+                        document.getElementById("output_group").value = '';
+                        alert('Таких данных не существует');
+                        return false;
+                    }
+
+                 };
+
+            var user_id = document.getElementById("input_user_id").value;
+            var params = {"id" : user_id};
+            if (document.getElementById("input_user_id").value == '')
+			{
+			alert ('Id не может быть пустым');
+			return false;
+			}
+            xhr.send(JSON.stringify(params));
+           }
+              function Save() {
+                var xhr = new XMLHttpRequest();
+            xhr.open("POST", "changeAdm");
+            xhr.setRequestHeader("Content-type", "application/json");
+            xhr.onload = (e)  => {
+
+                if(xhr.status != 200){
+                        window.alert("Что-то пошло не так")
+                    }
+                    else{
+                        alert(e.target.response);
+                    }
+
+            };
+            var name = document.getElementById("output_name").value;
+            var fam = document.getElementById("output_family").value;
+            var secondname = document.getElementById("output_secondname").value;
+            var university = document.getElementById("output_university").value;
+            var age = document.getElementById("output_age").value;
+            var course = document.getElementById("output_course").value;
+            var group = document.getElementById("output_group").value;
+            var login = document.getElementById("output_login").value;
+            var gender = document.getElementById("output_gender").value;
+            var kindofeducation = document.getElementById("output_kindofeducation").value;
+            var role = document.getElementById("output_role").value;
+            var id = document.getElementById("input_user_id").value;
+
+            var agtst = Number(age);
+            var coutst = Number(course);
+
+            var params1 = { "name" : name,
+                            "family" : fam,
+                            "secondname" : secondname,
+                            "university" : university,
+                            "age" : age,
+                            "course" : course,
+                            "group" : group,
+                            "login":login,
+                            "gender":gender,
+                            "kindofeducation":kindofeducation,
+                            "role":role,
+                            "id":id};
+
+
+
+			if(agtst&&coutst<1){
+				alert('Возраст и номер курса не могут быть меньше 1');
+				return false;
+			}
+
+             if(!(Number.isInteger(agtst&&coutst))){
+                alert('Возраст и номер группы должны быть числом');
+                return false;
+            }
+            xhr.send(JSON.stringify(params1));
+
+         }
+                 function allId() {
+                var xhr = new XMLHttpRequest();
+            xhr.open("POST", "ListId");
+            xhr.setRequestHeader("Content-type", "application/json");
+            xhr.onload = (e)  => {
+
+                if(xhr.status != 200){
+                        window.alert("Что-то пошло не так")
+                    }
+                    else
+                    {
+                        alert(e.target.response);
+                    }
+            };
+            var id = document.getElementById("input_user_id").value;
+            var params1 = {"id":id};
+
+            xhr.send(JSON.stringify(params1));
+
+		}
+
+		function delAcc() {
+                var xhr = new XMLHttpRequest();
+            xhr.open("POST", "delAcc");
+            xhr.setRequestHeader("Content-type", "application/json");
+            xhr.onload = (e)  => {
+
+                if(xhr.status != 200){
+                        window.alert("Что-то пошло не так")
+                    }
+                    else
+                    {
+                        alert(e.target.response);
+                    }
+            };
+            var id = document.getElementById("input_user_id").value;
+            var params1 = {"id":id};
+
+            xhr.send(JSON.stringify(params1));
+
+		}
+
+		</script>
+<form>
+	<label>
+		Введите id пользователя<input id="input_user_id" type="number" min="1" value="">
+	</label><br>
+	<label>
+		Имя:
+		<input id="output_name" type="text" value="">
+	</label><br>
+	<label>
+		Фамилия:
+		<input id="output_family" type="text" value="">
+	</label><br>
+	<label>
+		Отчество:
+		<input id="output_secondname" type="text" value="">
+	</label><br>
+	<label>
+		Место учебы:
+		<input id="output_university" type="text" value="">
+	</label><br>
+	<label>
+		Возраст:
+		<input id="output_age" type="number" value="">
+	</label><br>
+	<label>
+		Курс:
+		<input id="output_course" type="number" value="">
+	</label><br>
+	<label>
+		Группа:
+		<input id="output_group" type="text" value="">
+	</label><br>
+	<label>
+		Логин:
+		<input id="output_login" type="text" value="">
+	</label><br>
+	<label>
+		Пол:
+		<input id="output_gender" type="text" value="">
+	</label><br>
+	<label>
+		Тип образования:
+		<input id="output_kindofeducation" type="text" value="">
+	</label><br>
+	<label>
+		Роль:
+		<input id="output_role" type="text" value="">
+	</label><br>
+	<div>
+	<p><input class="but1" onclick="getUser()" type="button" value="Получить пользователя"></p>
+	<p><input class="but2" onclick="Save()" type="button" value="Сохранить изменения"></p>
+	<p><input class="but3" onclick="allId()" type="button" value="Все доступные id"></p>
+	<p><input class="but4" onclick="delAcc()" type="button" value="Удалить аккаунт"></p>
+	</div>
+</form>
+</body>
+</html>

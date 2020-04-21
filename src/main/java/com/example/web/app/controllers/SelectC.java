@@ -40,9 +40,14 @@ public class SelectC {
         int curid = userByIdRequest.getId();
         List<Integer> allid = dbSqlite.getUsersId();
         int last = allid.get(allid.size() - 1);
+        Man lastmanindb = dbSqlite.selectUserById(last);
+        String message = "Данный id отсутствует";
         if (curid > last) {
-            Man lastmanindb = dbSqlite.selectUserById(last);
             return gs.toJson(lastmanindb);
+        }
+        if(!(allid.contains(curid))){
+            return gs.toJson(lastmanindb);
+
         }
         Man man = dbSqlite.selectUserById(curid);
         return gs.toJson(man);
@@ -120,6 +125,7 @@ public class SelectC {
         man.setAge(inputRequest.getAge());
         man.setCourse(inputRequest.getCourse());
         man.setLogin(inputRequest.getLogin());
+        man.setRole(inputRequest.getRole());
 
         String name = man.getName();
         String fam = man.getFamily();
@@ -129,6 +135,7 @@ public class SelectC {
         Integer course = man.getCourse();
         String group = man.getGroup();
         String login = man.getLogin();
+        String role = man.getRole();
         String succes = "Профиль изменен";
         String me = SecurityContextHolder.getContext().getAuthentication().getName();
         if(checkchangeableData(name,fam,secondName,university,age,course,group,login).isEmpty()){
@@ -155,4 +162,78 @@ public class SelectC {
         return errors;
     }
 
+    @ApiOperation(value = "Изменение профиля пользователя Администратором (расширенное)")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "OK", response = InputRequest.class),
+            @ApiResponse(code = 400, message = "Ошибка валидации входных параметров"),
+            @ApiResponse(code = 500, message = "Внутренняя ошибка сервера")})
+    @RequestMapping(value = "changeAdm", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    public String adminchange(@RequestBody InputRequest inputRequest) {
+        Gson gs = new Gson();
+        Man man = new Man();
+
+        man.setId(inputRequest.getId());
+        man.setName(inputRequest.getName());
+        man.setFamily(inputRequest.getFamily());
+        man.setSecondname(inputRequest.getSecondname());
+        man.setUniversity(inputRequest.getUniversity());
+        man.setAge(inputRequest.getAge());
+        man.setCourse(inputRequest.getCourse());
+        man.setGroup(inputRequest.getGroup());
+        man.setLogin(inputRequest.getLogin());
+        man.setGender(inputRequest.getGender());
+        man.setKindeducation(inputRequest.getKindeducation());
+        man.setRole(inputRequest.getRole());
+
+        Integer id = man.getId();
+        String name = man.getName();
+        String fam = man.getFamily();
+        String secondName = man.getSecondname();
+        String university = man.getUniversity();
+        Integer age = man.getAge();
+        Integer course = man.getCourse();
+        String group = man.getGroup();
+        String login = man.getLogin();
+        String gender = man.getGender();
+        String kindofeducation = man.getKindeducation();
+        String role = man.getRole();
+        String succes = "Аккаунт изменен";
+
+
+        if(checkchangeableData(name,fam,secondName,university,age,course,group,login).isEmpty()){
+            DbSqlite.changeaccadm(name,fam,secondName,university,age,course,group,login,gender,kindofeducation,role,id);
+            return gs.toJson(succes);
+        }
+        else{
+            return gs.toJson(checkchangeableData(name,fam,secondName,university,age,course,group,login));
+        }
+    }
+    @ApiOperation(value = "Получения для администратора списка существующих id")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "OK", response = InputRequest.class),
+            @ApiResponse(code = 400, message = "Ошибка валидации входных параметров"),
+            @ApiResponse(code = 500, message = "Внутренняя ошибка сервера")})
+    @RequestMapping(value = "ListId", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    public String Listid(@RequestBody InputRequest inputRequest) {
+        Gson gs = new Gson();
+        List<Integer> allId = dbSqlite.getUsersId();
+
+        return gs.toJson(allId);
+
+    }
+    @ApiOperation(value = "Удаление аккаунта администратором")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "OK", response = InputRequest.class),
+            @ApiResponse(code = 400, message = "Ошибка валидации входных параметров"),
+            @ApiResponse(code = 500, message = "Внутренняя ошибка сервера")})
+    @RequestMapping(value = "delAcc", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    public String delAcc(@RequestBody InputRequest inputRequest) {
+        Gson gs = new Gson();
+        String succes = "Аккаунт удален";
+       Integer id = inputRequest.getId();
+        DbSqlite.deletAcc(id);
+
+        return gs.toJson(succes);
+
+    }
 }

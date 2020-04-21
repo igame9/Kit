@@ -16,6 +16,16 @@ public class Man {
     private String gender;
     private String kindeducation;
     private String role;
+    private Integer id;
+
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
 
     public String getRole() {
