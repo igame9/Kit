@@ -6,3 +6,10 @@ background: url(../images/add.png);
 background-size: cover;
 margin-left:35%;
 }
+body {
+background-color:green;
+background: url(../images/white-floretry.png);
+margin: auto;
+height: 100%;
+background-attachment: scroll;
+}

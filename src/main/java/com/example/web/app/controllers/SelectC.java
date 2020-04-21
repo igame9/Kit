@@ -142,7 +142,6 @@ public class SelectC {
     public List<String> checkchangeableData(String name,String family,String secondname,String university,Integer age,Integer course,String group,String login) {
 
         List<String> errors = new ArrayList<>();
-        List<String> nick = dbSqlite.getUsersLogin();
 
         if(name == null || name.trim().isEmpty()||name.length()<4) errors.add("Некорректное имя");
         if(family == null || name.trim().isEmpty()||name.length()<4) errors.add("Некорректное имя");
@@ -151,7 +150,7 @@ public class SelectC {
         if(group == null || group.trim().isEmpty())errors.add("Некорректный номер группы");
         if(login == null || login.trim().isEmpty()||login.length() > 6)errors.add("Логин не может превышать 6 символов");
         if(course > 6) errors.add("Номер курса не может быть больше 6 ");
-        if(age > 120) errors.add("Возраст не может быть больше 120 лет");
+        if(age > 120 || age <= 0) errors.add("Возраст не может быть больше 120 лет или меньше (или равный) 0");
 
         return errors;
     }

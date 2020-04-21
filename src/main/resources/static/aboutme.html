@@ -90,6 +90,7 @@
 </head>
 <body onload="getMe()">
 <form onsubmit="overRide(),window.location.reload()">
+	<p class="text"><b>Ваш личный профиль</p>
 	<label>
 		Имя:
 		<input id="me_name" type="text" value="">
@@ -127,7 +128,8 @@
 		<input id="me_role" disabled type="text" value="">
 	</label><br>
 	<label>
-		<input type="submit"  value="Сохранить">
+		<input class="button" type="submit"  value="Сохранить">
+		<a style="color:black" href="/webapp-example/site.html" class="ref">На главную</a>
 	</label><br>
 	<div class="picture"></div>
 </form>
