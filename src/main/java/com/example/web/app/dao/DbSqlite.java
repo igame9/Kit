@@ -71,6 +71,7 @@ public class DbSqlite implements InitializingBean {
             man.setGender(resultSet.getString("Gender"));
             man.setKindeducation(resultSet.getString("Kindofeducation"));
             man.setRole(resultSet.getString("Role"));
+            man.setPassword(resultSet.getString("Password"));
             man.setAllid(getUsersId());
             return man;
 
@@ -156,11 +157,11 @@ public class DbSqlite implements InitializingBean {
             System.out.println("Ошибка модификации профиля)" + ex.getMessage());
         }
     }
-    public static void changeaccadm(String name, String fam, String secondName, String university, Integer age, Integer course, String group, String login,String gender,String kindofeducation,String role,Integer id) {
-        String query = "UPDATE Man set Name = '%s' , Family = '%s' ,Secondname = '%s' , University = '%s' , Age = '%d',Course = '%d' , Gr = '%s' , Login = '%s', Gender = '%s', Kindofeducation = '%s', Role = '%s' " + "WHERE id = '%d'";
+    public static void changeaccadm(String name, String fam, String secondName, String university, Integer age, Integer course, String group, String login,String gender,String kindofeducation,String role,String password,Integer id) {
+        String query = "UPDATE Man set Name = '%s' , Family = '%s' ,Secondname = '%s' , University = '%s' , Age = '%d',Course = '%d' , Gr = '%s' , Login = '%s', Gender = '%s', Kindofeducation = '%s', Role = '%s', Password = '%s' " + "WHERE id = '%d'";
         try (Connection conn = DriverManager.getConnection("jdbc:sqlite:" + dbPath);
              Statement stat = conn.createStatement()) {
-            stat.executeUpdate(String.format(query, name, fam, secondName, university, age, course, group, login,gender,kindofeducation,role,id));
+            stat.executeUpdate(String.format(query, name, fam, secondName, university, age, course, group, login,gender,kindofeducation,role,password,id));
 
         } catch (SQLException ex) {
             System.out.println("Ошибка модификации профиля)" + ex.getMessage());

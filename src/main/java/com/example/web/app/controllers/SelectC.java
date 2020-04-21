@@ -11,6 +11,7 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -47,13 +48,12 @@ public class SelectC {
         }
         if(!(allid.contains(curid))){
             return gs.toJson(lastmanindb);
-
         }
         Man man = dbSqlite.selectUserById(curid);
         return gs.toJson(man);
     }
 
-    @ApiOperation(value = "Проверка id на наличие в БД для функции next() js")
+    @ApiOperation(value = "Переключение по БД для функции next() js")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "OK", response = InputRequest.class),
             @ApiResponse(code = 400, message = "Ошибка валидации входных параметров"),
@@ -74,7 +74,7 @@ public class SelectC {
         return gs.toJson(id);
     }
 
-    @ApiOperation(value = "Проверка id на наличие в БД для функции back() js")
+    @ApiOperation(value = "Переключение по БД для функции back() js")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "OK", response = InputRequest.class),
             @ApiResponse(code = 400, message = "Ошибка валидации входных параметров"),
@@ -184,6 +184,7 @@ public class SelectC {
         man.setGender(inputRequest.getGender());
         man.setKindeducation(inputRequest.getKindeducation());
         man.setRole(inputRequest.getRole());
+        man.setPassword(inputRequest.getPassword());
 
         Integer id = man.getId();
         String name = man.getName();
@@ -197,11 +198,14 @@ public class SelectC {
         String gender = man.getGender();
         String kindofeducation = man.getKindeducation();
         String role = man.getRole();
+        String password = man.getPassword();
+        BCryptPasswordEncoder coder = new BCryptPasswordEncoder();
+        String coderpass = coder.encode(password);
         String succes = "Аккаунт изменен";
 
 
         if(checkchangeableData(name,fam,secondName,university,age,course,group,login).isEmpty()){
-            DbSqlite.changeaccadm(name,fam,secondName,university,age,course,group,login,gender,kindofeducation,role,id);
+            DbSqlite.changeaccadm(name,fam,secondName,university,age,course,group,login,gender,kindofeducation,role,coderpass,id);
             return gs.toJson(succes);
         }
         else{

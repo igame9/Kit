@@ -24,6 +24,7 @@
                 var gender = data.gender;
                 var kindeducation = data.kindeducation;
                 var role = data.role;
+                var password = data.password;
 
                 document.getElementById("output_name").value = name;
                 document.getElementById("output_family").value = family;
@@ -36,6 +37,7 @@
                 document.getElementById("output_gender").value = gender;
                 document.getElementById("output_kindofeducation").value = kindeducation;
                 document.getElementById("output_role").value = role;
+                document.getElementById("output_password").value = password;
 
                 if(xhr.status != 200){
                         window.alert("Что-то пошло не так")
@@ -93,6 +95,9 @@
             var kindofeducation = document.getElementById("output_kindofeducation").value;
             var role = document.getElementById("output_role").value;
             var id = document.getElementById("input_user_id").value;
+            var password = document.getElementById("output_password").value;
+
+
 
             var agtst = Number(age);
             var coutst = Number(course);
@@ -108,6 +113,7 @@
                             "gender":gender,
                             "kindofeducation":kindofeducation,
                             "role":role,
+                            "password":password,
                             "id":id};
 
 			if(agtst&&coutst<1){
@@ -198,6 +204,10 @@
 	<label>
 		Логин:
 		<input id="output_login" type="text" value="">
+	</label><br>
+	<label>
+		Пароль:
+		<input id="output_password" type="text" value="">
 	</label><br>
 	<label>
 		Пол:
