@@ -1,9 +1,7 @@
 package com.example.web.app.dao;
-
 import com.example.web.app.api.request.Man;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.stereotype.Service;
-
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -45,7 +43,6 @@ public class DbSqlite implements InitializingBean {
         //  User user = new User(man.getId(), man.getName() , man.getFamily() , man.getUniversity());
         // String query = ("insert into Man (Name,Family,SecondName,University,Age,Course,Gr) values('" + name + "','" + fam + "','" + secondName + "','" + university + "','" + age + "','" + course + "','" + group + "')");
         String query = "insert into Man (Name,Family,SecondName,University,Age,Course,Gr,Login,Password,Gender,Kindofeducation,Role) " + "values ('%s', '%s', '%s', '%s', '%d', '%d', '%s', '%s', '%s', '%s', '%s', '%s')";
-
         try (Connection conn = DriverManager.getConnection("jdbc:sqlite:" + dbPath);
              Statement stat = conn.createStatement()) {
             stat.executeUpdate(String.format(query, name, fam, secondName, university, age, course, group, login, password, gender, kindofeducation, role));
@@ -62,19 +59,18 @@ public class DbSqlite implements InitializingBean {
             Man man = new Man();
             man.setName(resultSet.getString("Name"));
             man.setFamily(resultSet.getString("Family"));
-            man.setSecondname(resultSet.getString("SecondName"));
+            man.setSecondName(resultSet.getString("SecondName"));
             man.setUniversity(resultSet.getString("University"));
             man.setAge(resultSet.getInt("Age"));
             man.setCourse(resultSet.getInt("Course"));
             man.setGroup(resultSet.getString("Gr"));
             man.setLogin(resultSet.getString("Login"));
             man.setGender(resultSet.getString("Gender"));
-            man.setKindeducation(resultSet.getString("Kindofeducation"));
+            man.setKindEducation(resultSet.getString("Kindofeducation"));
             man.setRole(resultSet.getString("Role"));
             man.setPassword(resultSet.getString("Password"));
             man.setAllid(getUsersId());
             return man;
-
         } catch (SQLException ex) {
             System.out.println("Ошибка получения пользователя из БД" + ex.getMessage());
             log.log(Level.WARNING, "Не удалось выбрать пользователя", ex);
@@ -96,7 +92,6 @@ public class DbSqlite implements InitializingBean {
             log.log(Level.WARNING, "Не удалось выполнить запрос на получение списка id", ex);
             return null;
         }
-
     }
 
     public List getUsersLogin() {
@@ -113,7 +108,6 @@ public class DbSqlite implements InitializingBean {
             log.log(Level.WARNING, "Не удалось выполнить запрос на получение логинов", ex);
             return null;
         }
-
     }
 
     public static Man selectUserByLogin(String login) {
@@ -124,18 +118,17 @@ public class DbSqlite implements InitializingBean {
             Man man = new Man();
             man.setName(resultSet.getString("Name"));
             man.setFamily(resultSet.getString("Family"));
-            man.setSecondname(resultSet.getString("SecondName"));
+            man.setSecondName(resultSet.getString("SecondName"));
             man.setUniversity(resultSet.getString("University"));
             man.setAge(resultSet.getInt("Age"));
             man.setCourse(resultSet.getInt("Course"));
             man.setGroup(resultSet.getString("Gr"));
             man.setLogin(resultSet.getString("Login"));
             man.setGender(resultSet.getString("Gender"));
-            man.setKindeducation(resultSet.getString("Kindofeducation"));
+            man.setKindEducation(resultSet.getString("Kindofeducation"));
             man.setPassword(resultSet.getString("Password"));
             man.setRole(resultSet.getString("Role"));
             return man;
-
         } catch (SQLException ex) {
             System.out.println("Ошибка получения пользователя из БД (Login)" + ex.getMessage());
             Man errorman = new Man();
@@ -152,27 +145,26 @@ public class DbSqlite implements InitializingBean {
         try (Connection conn = DriverManager.getConnection("jdbc:sqlite:" + dbPath);
              Statement stat = conn.createStatement()) {
             stat.executeUpdate(String.format(query, name, fam, secondName, university, age, course, group, login,me));
-
         } catch (SQLException ex) {
             System.out.println("Ошибка модификации профиля)" + ex.getMessage());
         }
     }
+
     public static void changeaccadm(String name, String fam, String secondName, String university, Integer age, Integer course, String group, String login,String gender,String role,String password,Integer id) {
         String query = "UPDATE Man set Name = '%s' , Family = '%s' ,Secondname = '%s' , University = '%s' , Age = '%d',Course = '%d' , Gr = '%s' , Login = '%s', Gender = '%s',  Role = '%s', Password = '%s' " + "WHERE id = '%d'";
         try (Connection conn = DriverManager.getConnection("jdbc:sqlite:" + dbPath);
              Statement stat = conn.createStatement()) {
             stat.executeUpdate(String.format(query, name, fam, secondName, university, age, course, group, login,gender,role,password,id));
-
         } catch (SQLException ex) {
             System.out.println("Ошибка модификации профиля)" + ex.getMessage());
         }
     }
+
     public static void deletAcc(Integer id) {
         String query = "DELETE FROM Man WHERE id='%d'";
         try (Connection conn = DriverManager.getConnection("jdbc:sqlite:" + dbPath);
              Statement stat = conn.createStatement()) {
             stat.executeUpdate(String.format(query,id ));
-
         } catch (SQLException ex) {
             System.out.println("Ошибка модификации профиля)" + ex.getMessage());
         }

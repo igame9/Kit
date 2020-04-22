@@ -3,7 +3,7 @@ package com.example.web.app.api.request;
 public  class InputRequest {
     private String name;
     private String family;
-    private String secondname;
+    private String secondName;
     private String university;
     private Integer age;
     private Integer course;
@@ -11,9 +11,26 @@ public  class InputRequest {
     private String login;
     private String password;
     private String gender;
-    private String kindeducation;
+    private String kindEducation;
     private String role;
     private Integer id;
+
+
+    public String getSecondName() {
+        return secondName;
+    }
+
+    public void setSecondName(String secondName) {
+        this.secondName = secondName;
+    }
+
+    public String getKindEducation() {
+        return kindEducation;
+    }
+
+    public void setKindEducation(String kindEducation) {
+        this.kindEducation = kindEducation;
+    }
 
 
     public Integer getId() {
@@ -33,13 +50,6 @@ public  class InputRequest {
         this.role = role;
     }
 
-    public String getKindeducation() {
-        return kindeducation;
-    }
-
-    public void setKindeducation(String kindeducation) {
-        this.kindeducation = kindeducation;
-    }
 
     public String getGender() {
         return gender;
@@ -65,7 +75,6 @@ public  class InputRequest {
         this.password = password;
     }
 
-
     public String getName() {
         return name;
     }
@@ -82,13 +91,6 @@ public  class InputRequest {
         this.family = family;
     }
 
-    public String getSecondname() {
-        return secondname;
-    }
-
-    public void setSecondname(String secondname) {
-        this.secondname = secondname;
-    }
 
     public String getUniversity() {
         return university;

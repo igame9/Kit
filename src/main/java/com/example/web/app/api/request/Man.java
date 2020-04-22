@@ -5,16 +5,16 @@ import java.util.List;
 public class Man {
     private String name;
     private String family;
-    private String secondname;
+    private String secondName;
     private String university;
     private Integer age;
     private Integer course;
     private String group;
-    private  List allid;
+    private  List<Integer> allid;
     private String login;
     private String password;
     private String gender;
-    private String kindeducation;
+    private String kindEducation;
     private String role;
     private Integer id;
 
@@ -36,12 +36,20 @@ public class Man {
         this.role = role;
     }
 
-    public String getKindeducation() {
-        return kindeducation;
+    public String getSecondName() {
+        return secondName;
     }
 
-    public void setKindeducation(String kindeducation) {
-        this.kindeducation = kindeducation;
+    public void setSecondName(String secondName) {
+        this.secondName = secondName;
+    }
+
+    public String getKindEducation() {
+        return kindEducation;
+    }
+
+    public void setKindEducation(String kindEducation) {
+        this.kindEducation = kindEducation;
     }
 
     public String getGender() {
@@ -76,7 +84,6 @@ public class Man {
         this.allid = allid;
     }
 
-
     public String getName() {
         return name;
     }
@@ -91,14 +98,6 @@ public class Man {
 
     public void setFamily(String family) {
         this.family = family;
-    }
-
-    public String getSecondname() {
-        return secondname;
-    }
-
-    public void setSecondname(String secondname) {
-        this.secondname = secondname;
     }
 
     public String getUniversity() {

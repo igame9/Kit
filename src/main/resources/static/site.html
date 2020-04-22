@@ -1,10 +1,10 @@
 <!DOCTYPE html>
+<html lang="en">
 <link href="css/mycss.css" rel="stylesheet"/>
 <html>
 <head>
 	<meta charset="utf-8"/>
 	<title>Сайт</title>
-
 </head>
 <header align="center" class="head">
 	<h1>Личный сайт</h1>
@@ -15,179 +15,180 @@
 <div class="Mtext">
 	<div class="test">
 		<p><b>Здесь располагается поиск пользователей по сайту</p>
-		<a style="color:SandyBrown"  href="/webapp-example/logout">Выйти</a>
-		<a style="color:SandyBrown"  href="/webapp-example/aboutme.html">Моя страница</a>
+		<a style="color:SandyBrown"  href="logout">Выйти</a>
+		<a style="color:SandyBrown"  href="aboutme.html">Моя страница</a>
 	</div>
-		<form>
-			<label>
-				Введите id Студента<input id="input_user_id" type="number" min="1" value="">
-			</label><br>
-			<label>
-				Имя:
-				<output id="output_name" type="text" value=""></output>
-			</label><br>
-			<label>
-				Фамилия:
-				<output id="output_family" type="text" value=""></output>
-			</label><br>
-			<label>
-				Отчество:
-				<output id="output_secondname" type="text" value=""></output>
-			</label><br>
-			<label>
-				Место учебы:
-				<output id="output_university" type="text" value=""></output>
-			</label><br>
-			<label>
-				Возраст:
-				<output id="output_age" type="number" value=""></output>
-			</label><br>
-			<label>
-				Курс:
-				<output id="output_course" type="number" value=""></output>
-			</label><br>
-			<label>
-				Группа:
-				<output id="output_group" type="text" value=""></output>
-			</label><br>
-			<label>
-				Логин:
-				<output id="output_login" type="text" value=""></output>
-			</label><br>
-			<label>
-				Пол:
-				<output id="output_gender" type="text" value=""></output>
-			</label><br>
-			<label>
-				Тип образования:
-				<output id="output_kindofeducation" type="text" value=""></output>
-			</label><br>
-			<label>
-				Роль:
-				<output id="output_role" type="text" value=""></output>
-			</label><br>
-			<p><input class="getUsers" onclick="getUser()" type="button" value="Получить пользователя"></p>
-			<p><input class="next" onclick="Next()" type="button" value="Вперед"></p>
-			<p><input class="back" onclick="Back()" type="button" value="Назад"></p>
-		</form>
+	<form>
+		<label>
+			Введите id Студента<input id="input_user_id" type="number" min="1" value="">
+		</label><br>
+		<label>
+			Имя:
+			<output id="output_name" type="text" value=""></output>
+		</label><br>
+		<label>
+			Фамилия:
+			<output id="output_family" type="text" value=""></output>
+		</label><br>
+		<label>
+			Отчество:
+			<output id="output_secondname" type="text" value=""></output>
+		</label><br>
+		<label>
+			Место учебы:
+			<output id="output_university" type="text" value=""></output>
+		</label><br>
+		<label>
+			Возраст:
+			<output id="output_age" type="number" value=""></output>
+		</label><br>
+		<label>
+			Курс:
+			<output id="output_course" type="number" value=""></output>
+		</label><br>
+		<label>
+			Группа:
+			<output id="output_group" type="text" value=""></output>
+		</label><br>
+		<label>
+			Логин:
+			<output id="output_login" type="text" value=""></output>
+		</label><br>
+		<label>
+			Пол:
+			<output id="output_gender" type="text" value=""></output>
+		</label><br>
+		<label>
+			Тип образования:
+			<output id="output_kindofeducation" type="text" value=""></output>
+		</label><br>
+		<label>
+			Роль:
+			<output id="output_role" type="text" value=""></output>
+		</label><br>
+		<p><input class="getUsers" onclick="getUser()" type="button" value="Получить пользователя"></p>
+		<p><input class="next" onclick="Next()" type="button" value="Вперед"></p>
+		<p><input class="back" onclick="Back()" type="button" value="Назад"></p>
+	</form>
+	<img class="rocket" alt="Рокета" src="images/r3.png">
 
-		<img class="rocket" src="images/r3.png">
+	<script type="text/javascript">
+      function getUser() {
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", "SelectUser");
+    xhr.setRequestHeader("Content-type", "application/json");
+    xhr.onload = (e) => {
+        var data = JSON.parse(e.target.response);
+        var name = data.name;
+        var family = data.family;
+        var secondName = data.secondName;
+        var university = data.university;
+        var age = data.age;
+        var course = data.course;
+        var group = data.group;
+        var login = data.login;
+        var gender = data.gender;
+        var kindEducation = data.kindEducation;
+        var role = data.role;
 
-		<script type="text/javascript">
-        function getUser() {
-            var xhr = new XMLHttpRequest();
-            xhr.open("POST", "SelectUser");
-            xhr.setRequestHeader("Content-type", "application/json");
-            xhr.onload = (e) => {
-                var data = JSON.parse(e.target.response);
-                var name = data.name;
-                var family = data.family;
-                var secondname = data.secondname;
-                var university = data.university;
-                var age = data.age;
-                var course = data.course;
-                var group = data.group;
-                var login = data.login;
-                var gender = data.gender;
-                var kindeducation = data.kindeducation;
-                var role = data.role;
+        document.getElementById("output_name").value = name;
+        document.getElementById("output_family").value = family;
+        document.getElementById("output_secondname").value = secondName;
+        document.getElementById("output_university").value = university;
+        document.getElementById("output_age").value = age;
+        document.getElementById("output_course").value = course;
+        document.getElementById("output_group").value = group;
+        document.getElementById("output_login").value = login;
+        document.getElementById("output_gender").value = gender;
+        document.getElementById("output_kindofeducation").value = kindEducation;
+        document.getElementById("output_role").value = role;
 
-                document.getElementById("output_name").value = name;
-                document.getElementById("output_family").value = family;
-                document.getElementById("output_secondname").value = secondname;
-                document.getElementById("output_university").value = university;
-                document.getElementById("output_age").value = age;
-                document.getElementById("output_course").value = course;
-                document.getElementById("output_group").value = group;
-                document.getElementById("output_login").value = login;
-                document.getElementById("output_gender").value = gender;
-                document.getElementById("output_kindofeducation").value = kindeducation;
-                document.getElementById("output_role").value = role;
+        if (xhr.status !== 200) {
+            window.alert("Что-то пошло не так")
+        } else {
+            // window.alert("Данные нашлись"+e.target.response)
+        }
+        if (document.getElementById("output_name").value === 'undefined') {
+            document.getElementById("output_name").value = '';
+            document.getElementById("output_family").value = '';
+            document.getElementById("output_secondname").value = '';
+            document.getElementById("output_university").value = '';
+            document.getElementById("output_age").value = '';
+            document.getElementById("output_course").value = '';
+            document.getElementById("output_group").value = '';
+            alert('Таких данных не существует');
+            return false;
+        }
+    };
 
-                if(xhr.status != 200){
-                        window.alert("Что-то пошло не так")
-                    }
-                    else
-                    {
-                       // window.alert("Данные нашлись"+e.target.response)
-                    }
-                    if( document.getElementById("output_name").value === 'undefined'){
-                        document.getElementById("output_name").value = '';
-                        document.getElementById("output_family").value = '';
-                        document.getElementById("output_secondname").value = '';
-                        document.getElementById("output_university").value = '';
-                        document.getElementById("output_age").value = '';
-                        document.getElementById("output_course").value = '';
-                        document.getElementById("output_group").value = '';
-                        alert('Таких данных не существует');
-                        return false;
-                    }
+    var user_id = document.getElementById("input_user_id").value;
+    var params = {
+        "id": user_id
+    };
+    if (document.getElementById("input_user_id").value === '') {
+        alert('Id не может быть пустым');
+        return false;
+    }
+    xhr.send(JSON.stringify(params));
+}
 
-                 };
+function Next() {
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", "CheckidF");
+    xhr.setRequestHeader("Content-type", "application/json");
+    xhr.onload = (e) => {
+        var data = JSON.parse(e.target.response);
+        document.getElementById("input_user_id").value = data;
+    };
 
-            var user_id = document.getElementById("input_user_id").value;
-            var params = {"id" : user_id};
-            if (document.getElementById("input_user_id").value == '')
-			{
-			alert ('Id не может быть пустым');
-			return false;
-			}
-            xhr.send(JSON.stringify(params));
-		}
-
-		function Next() {
-			var xhr = new XMLHttpRequest();
-            xhr.open("POST", "CheckidF");
-            xhr.setRequestHeader("Content-type", "application/json");
-            xhr.onload = (e) => {
-            var data = JSON.parse(e.target.response);
-            document.getElementById("input_user_id").value = data;
-                 };
-
-            var user_id = document.getElementById("input_user_id").value;
-			if(document.getElementById("input_user_id").value == ''){
-				var user_id = 1;
-				document.getElementById("input_user_id").value = user_id;
-				var params = {"id" : user_id};
-				xhr.send(JSON.stringify(params));
-				window.onload = getUser();
+    var user_id = document.getElementById("input_user_id").value;
+    if (document.getElementById("input_user_id").value === '') {
+        var user_id = 1;
+        document.getElementById("input_user_id").value = user_id;
+        var params = {
+            "id": user_id
+        };
+        xhr.send(JSON.stringify(params));
+        window.onload = getUser();
 
 
-			}
-			else{
-				document.getElementById("input_user_id").value = user_id;
-				var params = {"id" : user_id};
-				xhr.send(JSON.stringify(params));
-				window.onload = getUser();
+    } else {
+        document.getElementById("input_user_id").value = user_id;
+        var params = {
+            "id": user_id
+        };
+        xhr.send(JSON.stringify(params));
+        window.onload = getUser();
+    }
+}
 
-			}
-		}
+function Back() {
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", "CheckidB");
+    xhr.setRequestHeader("Content-type", "application/json");
+    xhr.onload = (e) => {
+        var data = JSON.parse(e.target.response);
+        document.getElementById("input_user_id").value = data;
+    };
+    var user_id = document.getElementById("input_user_id").value;
+    if (document.getElementById("input_user_id").value === '') {
+        var user_id = 1;
+        document.getElementById("input_user_id").value = user_id;
+        var params = {
+            "id": user_id
+        };
+        xhr.send(JSON.stringify(params));
+        window.onload = getUser();
 
-		function Back() {
-			var xhr = new XMLHttpRequest();
-            xhr.open("POST", "CheckidB");
-            xhr.setRequestHeader("Content-type", "application/json");
-            xhr.onload = (e) => {
-            var data = JSON.parse(e.target.response);
-            document.getElementById("input_user_id").value = data;
-                 };
-            var user_id = document.getElementById("input_user_id").value;
-			if(document.getElementById("input_user_id").value == ''){
-				var user_id = 1;
-				document.getElementById("input_user_id").value = user_id;
-				var params = {"id" : user_id};
-				xhr.send(JSON.stringify(params));
-				window.onload = getUser();
-
-				}
-			else{
-				document.getElementById("input_user_id").value = user_id;
-				var params = {"id" : user_id};
-				xhr.send(JSON.stringify(params));
-				window.onload = getUser();
-			}
-		}
-
+    } else {
+        document.getElementById("input_user_id").value = user_id;
+        var params = {
+            "id": user_id
+        };
+        xhr.send(JSON.stringify(params));
+        window.onload = getUser();
+    }
+}
 		</script>
 </body>
 </html>
