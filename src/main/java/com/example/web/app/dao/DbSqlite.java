@@ -77,7 +77,7 @@ public class DbSqlite implements InitializingBean {
         }
     }
 
-    public List getUsersId() {
+    public List<Integer> getUsersId() {
         String query = "select ID from Man";
         List<Integer> list = new ArrayList<>();
         try (Connection conn = DriverManager.getConnection("jdbc:sqlite:" + dbPath);
@@ -93,7 +93,7 @@ public class DbSqlite implements InitializingBean {
         }
     }
 
-    public List getUsersLogin() {
+    public List<String> getUsersLogin() {
         String query = "select Login from Man";
         List<String> list = new ArrayList<>();
         try (Connection conn = DriverManager.getConnection("jdbc:sqlite:" + dbPath);
@@ -110,10 +110,10 @@ public class DbSqlite implements InitializingBean {
     }
 
     public Man selectUserByLogin(String login) {
-        String query = "select * from Man where Login = " + "'" + login + "'";
+        String query = "select * from Man where Login = '%s'" ;
         try (Connection conn = DriverManager.getConnection("jdbc:sqlite:" + dbPath);
              Statement stat = conn.createStatement()) {
-            ResultSet resultSet = stat.executeQuery(query);
+            ResultSet resultSet = stat.executeQuery(String.format(query, login));
             Man man = new Man();
             man.setName(resultSet.getString("Name"));
             man.setFamily(resultSet.getString("Family"));
