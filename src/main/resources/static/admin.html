@@ -99,8 +99,8 @@ function Save() {
         "gender": gender,
         "role": role,
         "password": password,
-        "id": id
-    };
+        "id": id };
+
     if (agtst && coutst < 1) {
         alert('Возраст и номер курса не могут быть меньше 1');
         return false;
@@ -193,11 +193,17 @@ function delAcc() {
 	</label><br>
 	<label>
 		Пол:
-		<input id="output_gender" type="text" value="">
-	</label><br>
+		<select id="output_gender">
+			<option value="Женский">Женщина</option>
+			<option value="Мужской">Мужчина</option>
+		</select><br>
+	</label>
 	<label>
 		Роль:
-		<input id="output_role" type="text" value="">
+		<select id="output_role">
+			<option value="USER">USER</option>
+			<option value="ADMIN">ADMIN</option>
+		</select><br>
 	</label><br>
 	<div>
 		<p><input class="but1" onclick="getUser()" type="button" value="Получить пользователя"></p>

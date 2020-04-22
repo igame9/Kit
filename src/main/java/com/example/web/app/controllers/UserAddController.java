@@ -42,6 +42,7 @@ public class UserAddController {
     public String requestMethodPost(@RequestBody InputRequest inputRequest) { //requestbody во в счех пост должно быть ,отправляем в модель greeting
         Man man = new Man();
         Gson gs = new Gson();
+        DbSqlite db = new DbSqlite();
         man.setFamily(inputRequest.getFamily());
         man.setName(inputRequest.getName());
         man.setUniversity(inputRequest.getUniversity());
@@ -70,7 +71,7 @@ public class UserAddController {
         String role = man.getRole();
         String succes = "Вы зарегистрированы";
        if(checkData(name,fam,secondName,university,age,course,group,login,password,role).isEmpty()){
-           DbSqlite.insertMan(name,fam,secondName,university,age,course,group,login,coderpass,gender,kindofeducation,role);
+           db.insertMan(name,fam,secondName,university,age,course,group,login,coderpass,gender,kindofeducation,role);
            return  gs.toJson(succes);
        }
        else{

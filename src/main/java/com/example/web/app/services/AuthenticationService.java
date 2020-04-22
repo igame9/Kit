@@ -20,7 +20,8 @@ public class AuthenticationService implements UserDetailsService {
     }
     @Override
     public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
-            Man cred = DbSqlite.selectUserByLogin(login);
+        DbSqlite db = new DbSqlite();
+        Man cred = db.selectUserByLogin(login);
         UserDetails user = User
                 .withUsername(cred.getLogin())
                 .password(cred.getPassword())

@@ -95,8 +95,9 @@ public class UserController {
     @RequestMapping(value = "GetMe", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public String GetMe(@RequestBody InputRequest inputRequest) {
         Gson gs = new Gson();
+        DbSqlite db = new DbSqlite();
         String nick = SecurityContextHolder.getContext().getAuthentication().getName();
-        Man man = DbSqlite.selectUserByLogin(nick);
+        Man man = db.selectUserByLogin(nick);
         return gs.toJson(man);
     }
     @ApiOperation(value = "Изменение профиля пользователя")
@@ -108,6 +109,7 @@ public class UserController {
     public String changeUser(@RequestBody InputRequest inputRequest) {
         Gson gs = new Gson();
         Man man = new Man();
+        DbSqlite db = new DbSqlite();
         man.setFamily(inputRequest.getFamily());
         man.setName(inputRequest.getName());
         man.setUniversity(inputRequest.getUniversity());
@@ -129,7 +131,7 @@ public class UserController {
         String succes = "Профиль изменен";
         String me = SecurityContextHolder.getContext().getAuthentication().getName();
         if(checkchangeableData(name,fam,secondName,university,age,course,group,login).isEmpty()){
-            DbSqlite.changeTable(name,fam,secondName,university,age,course,group,login,me);
+            db.changeTable(name,fam,secondName,university,age,course,group,login,me);
             return gs.toJson(succes);
         }
         else{
@@ -139,8 +141,8 @@ public class UserController {
     public List<String> checkchangeableData(String name,String family,String secondname,String university,Integer age,Integer course,String group,String login) {
         List<String> errors = new ArrayList<>();
         if(name == null || name.trim().isEmpty()||name.length()<4) errors.add("Некорректное имя");
-        if(family == null || name.trim().isEmpty()||name.length()<4) errors.add("Некорректное имя");
-        if(secondname == null || name.trim().isEmpty()||name.length()<4) errors.add("Некорректное имя");
+        if(family == null || family.trim().isEmpty()||family.length()<4) errors.add("Некорректная Фамилия");
+        if(secondname == null || secondname.trim().isEmpty()||secondname.length()<4) errors.add("Некорректное Отчество");
         if(university == null || university.trim().isEmpty()) errors.add("Некорректное место учебы ");
         if(group == null || group.trim().isEmpty())errors.add("Некорректный номер группы");
         if(login == null || login.trim().isEmpty()||login.length() > 6)errors.add("Логин не может превышать 6 символов");
@@ -157,6 +159,7 @@ public class UserController {
     public String adminchange(@RequestBody InputRequest inputRequest) {
         Gson gs = new Gson();
         Man man = new Man();
+        DbSqlite db = new DbSqlite();
         man.setId(inputRequest.getId());
         man.setName(inputRequest.getName());
         man.setFamily(inputRequest.getFamily());
@@ -180,12 +183,19 @@ public class UserController {
         String login = man.getLogin();
         String gender = man.getGender();
         String role = man.getRole();
+        Man manOld = db.selectUserById(id);
+        String oldPassword = manOld.getPassword();
         String password = man.getPassword();
+       //System.out.println(oldPassword + "другой" + password);
         BCryptPasswordEncoder coder = new BCryptPasswordEncoder();
         String coderpass = coder.encode(password);
         String succes = "Аккаунт изменен";
+        if(oldPassword.equals(password)){
+            db.changeaccadm(name,fam,secondName,university,age,course,group,login,gender,role,oldPassword,id);
+            return gs.toJson(succes);
+        }
         if(checkchangeableData(name,fam,secondName,university,age,course,group,login).isEmpty()){
-            DbSqlite.changeaccadm(name,fam,secondName,university,age,course,group,login,gender,role,coderpass,id);
+            db.changeaccadm(name,fam,secondName,university,age,course,group,login,gender,role,coderpass,id);
             return gs.toJson(succes);
         }
         else{
@@ -212,9 +222,10 @@ public class UserController {
     @RequestMapping(value = "delAcc", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public String delAcc(@RequestBody InputRequest inputRequest) {
         Gson gs = new Gson();
+        DbSqlite db = new DbSqlite();
         String succes = "Аккаунт удален";
        Integer id = inputRequest.getId();
-        DbSqlite.deletAcc(id);
+        db.deleteAcc(id);
         return gs.toJson(succes);
 
     }

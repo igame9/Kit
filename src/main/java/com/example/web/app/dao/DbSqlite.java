@@ -39,7 +39,7 @@ public class DbSqlite implements InitializingBean {
     }
 
     //Когда ввел данные
-    public static void insertMan(String name, String fam, String secondName, String university, Integer age, Integer course, String group, String login, String password, String gender, String kindofeducation, String role) {
+    public void insertMan(String name, String fam, String secondName, String university, Integer age, Integer course, String group, String login, String password, String gender, String kindofeducation, String role) {
         //  User user = new User(man.getId(), man.getName() , man.getFamily() , man.getUniversity());
         // String query = ("insert into Man (Name,Family,SecondName,University,Age,Course,Gr) values('" + name + "','" + fam + "','" + secondName + "','" + university + "','" + age + "','" + course + "','" + group + "')");
         String query = "insert into Man (Name,Family,SecondName,University,Age,Course,Gr,Login,Password,Gender,Kindofeducation,Role) " + "values ('%s', '%s', '%s', '%s', '%d', '%d', '%s', '%s', '%s', '%s', '%s', '%s')";
@@ -47,7 +47,7 @@ public class DbSqlite implements InitializingBean {
              Statement stat = conn.createStatement()) {
             stat.executeUpdate(String.format(query, name, fam, secondName, university, age, course, group, login, password, gender, kindofeducation, role));
         } catch (SQLException ex) {
-            System.out.println("Ошибка  записи в БД" + ex.getMessage() + ex.getCause());
+            log.log(Level.WARNING, "Ошибка записи пользователя в БД", ex);
         }
     }
 
@@ -72,7 +72,6 @@ public class DbSqlite implements InitializingBean {
             man.setAllid(getUsersId());
             return man;
         } catch (SQLException ex) {
-            System.out.println("Ошибка получения пользователя из БД" + ex.getMessage());
             log.log(Level.WARNING, "Не удалось выбрать пользователя", ex);
             return new Man();
         }
@@ -110,7 +109,7 @@ public class DbSqlite implements InitializingBean {
         }
     }
 
-    public static Man selectUserByLogin(String login) {
+    public Man selectUserByLogin(String login) {
         String query = "select * from Man where Login = " + "'" + login + "'";
         try (Connection conn = DriverManager.getConnection("jdbc:sqlite:" + dbPath);
              Statement stat = conn.createStatement()) {
@@ -130,7 +129,7 @@ public class DbSqlite implements InitializingBean {
             man.setRole(resultSet.getString("Role"));
             return man;
         } catch (SQLException ex) {
-            System.out.println("Ошибка получения пользователя из БД (Login)" + ex.getMessage());
+            log.log(Level.WARNING, "Ошибка получения пользователя из БД (по логину)", ex);
             Man errorman = new Man();
             errorman.setLogin("Error");
             errorman.setPassword("Error");
@@ -140,35 +139,35 @@ public class DbSqlite implements InitializingBean {
         }
     }
 
-    public static void changeTable(String name, String fam, String secondName, String university, Integer age, Integer course, String group, String login,String me) {
+    public  void changeTable(String name, String fam, String secondName, String university, Integer age, Integer course, String group, String login,String me) {
         String query = "UPDATE Man set Name = '%s' , Family = '%s' ,Secondname = '%s' , University = '%s' , Age = '%d',Course = '%d' , Gr = '%s' , Login = '%s' " + "WHERE Login = '%s'";
         try (Connection conn = DriverManager.getConnection("jdbc:sqlite:" + dbPath);
              Statement stat = conn.createStatement()) {
             stat.executeUpdate(String.format(query, name, fam, secondName, university, age, course, group, login,me));
         } catch (SQLException ex) {
-            System.out.println("Ошибка модификации профиля)" + ex.getMessage());
+            log.log(Level.WARNING, "Ошибка модификации профиля", ex);
         }
     }
 
-    public static void changeaccadm(String name, String fam, String secondName, String university, Integer age, Integer course, String group, String login,String gender,String role,String password,Integer id) {
+    public void changeaccadm(String name, String fam, String secondName, String university, Integer age, Integer course, String group, String login, String gender, String role, String password, Integer id) {
         String query = "UPDATE Man set Name = '%s' , Family = '%s' ,Secondname = '%s' , University = '%s' , Age = '%d',Course = '%d' , Gr = '%s' , Login = '%s', Gender = '%s',  Role = '%s', Password = '%s' " + "WHERE id = '%d'";
         try (Connection conn = DriverManager.getConnection("jdbc:sqlite:" + dbPath);
              Statement stat = conn.createStatement()) {
             stat.executeUpdate(String.format(query, name, fam, secondName, university, age, course, group, login,gender,role,password,id));
         } catch (SQLException ex) {
-            System.out.println("Ошибка модификации профиля)" + ex.getMessage());
+            log.log(Level.WARNING, "Ошибка модфикации профиля администратором", ex);
         }
     }
 
-    public static void deletAcc(Integer id) {
+    public void deleteAcc(Integer id) {
         String query = "DELETE FROM Man WHERE id='%d'";
         try (Connection conn = DriverManager.getConnection("jdbc:sqlite:" + dbPath);
              Statement stat = conn.createStatement()) {
             stat.executeUpdate(String.format(query,id ));
         } catch (SQLException ex) {
-            System.out.println("Ошибка модификации профиля)" + ex.getMessage());
+            log.log(Level.WARNING, "Не удалось удалить профиль", ex);
+
         }
     }
-
 
 }
